@@ -22,13 +22,14 @@ if __name__ == '__main__':
         Forum.query.delete()
 
         # Sample Data:
-        accountType = [Guide, Planter]
+        accountTypes = ["Guide", "Planter"]
+        genres = ["Question", "Post", "Answer"]
 
         users = []
         for i in range(25):
             user = User(
                 username=fake.user_name(),
-                accountType=random.choice(accountType)
+                accountType=random.choice(accountTypes)
             )
             users.append(user)
         
@@ -37,5 +38,11 @@ if __name__ == '__main__':
         posts = []
         for i in range(25):
             post = Post(
-                content=fake.sentence(nb_words=5)
+                content=fake.sentence(nb_words=5),
+                genre=random.choice(genres),
+                user_id=random.randint(1, 25),
+                forum_id=random.randint(1, 25)
             )
+            posts.append(post)
+
+        db.session.add_all(posts)
