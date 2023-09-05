@@ -33,14 +33,15 @@ class Plant(db.Model):
     __tablename__ = "plants"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    growingLevel = db.Column(db.Integer) 
+    common_name = db.Column(db.String)
+    scientific_name = db.Column(db.String)
+    growing_level = db.Column(db.Integer) 
     img = db.Column(db.String)
 
     users = db.relationship("User", secondary=user_plant, back_populates="plants")
 
     def __repr__(self):
-        return f"<Plant {self.name} | {self.growingLevel}"
+        return f"<Plant {self.common_name} | {self.scientific_name} | {self.growing_level}>"
 
 class Forum(db.Model):
     __tablename__ = "forums"
