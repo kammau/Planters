@@ -22,6 +22,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String)
     genre = db.Column(db.String)
+
     user_id = db.Column(db.Integer(), db.ForeignKey("users.id"))
     forum_id = db.Column(db.Integer(), db.ForeignKey("forums.id"))
 
@@ -33,11 +34,13 @@ class Plant(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    #native = db.Column(db.String)
     growingLevel = db.Column(db.Integer) 
     img = db.Column(db.String)
 
     users = db.relationship("User", secondary=user_plant, back_populates="plants")
+
+    def __repr__(self):
+        return f"<Plant {self.name} | {self.growingLevel}"
 
 class Forum(db.Model):
     __tablename__ = "forums"
