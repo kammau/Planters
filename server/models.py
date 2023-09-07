@@ -3,6 +3,12 @@ from sqlalchemy.ext.associationproxy import association_proxy
 
 from config import db
 
+user_plant = db.Table(
+    "user_plant", 
+    db.Column("user_id", db.Integer, db.ForeignKey("users.id")),
+    db.Column("plant_id", db.Integer, db.ForeignKey("plants.id"))
+)
+
 class User(db.Model):
     __tablename__ = "users"
 
@@ -56,9 +62,3 @@ class Forum(db.Model):
 
     def __repr__(self):
         return f"<Forum {self.title} | {self.followers}"
-
-user_plant = db.Table(
-    "user_plant", 
-    db.Column("user_id", db.Integer, db.ForeignKey("users.id")),
-    db.Column("plant_id", db.Integer, db.ForeignKey("plants.id"))
-)
