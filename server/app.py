@@ -24,6 +24,9 @@ db.init_app(app)
 def index():
     return '<h1>Phase 4 Project Server</h1>'
 
+class Signup(Resource):
+    def 
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

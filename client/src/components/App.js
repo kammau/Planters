@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
+import NavBar from "./NavBar";
+import Login from "./Login"
 
 function App() {
-  return <h1>Phase 4 Project Client</h1>;
+  return (
+    <div>
+      <NavBar />
+      <Switch>
+        <Route exact path="/login">
+          <Login></Login>
+        </Route>
+      </Switch>
+    </div>
+  );
 }
 
 export default App;
