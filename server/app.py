@@ -21,7 +21,13 @@ migrate = Migrate(app, db)
 db.init_app(app)
 
 class CheckSession(Resource):
-    pass
+    def get(self):
+        if session.get("user.id"):
+            user = User.query.filter(User.id == session["user_id"]).first()
+
+            return user.to_dict(), 200
+
+        return {"error": "401 Unauthorized"}
 
 class Login(Resource):
     def post(self):
