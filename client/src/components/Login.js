@@ -27,11 +27,11 @@ function Login({ setUser }) {
                 <h1>Welcome Back!</h1>
                 <p>Please Enter Your Login Info</p>
                 
-                <label for="username">Username</label>
-                <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
 
-                <label for="password">Password</label>
-                <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input type="text" id="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+
+                
+                <input type="password" id="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
                 <button type="submit">Login</button>
             </form>
