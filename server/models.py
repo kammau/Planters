@@ -1,5 +1,6 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from config import db, bcrypt
 
@@ -20,9 +21,9 @@ class User(db.Model):
     posts = db.relationship("Post", backref="user")
     plants = db.relationship("Plant", secondary=user_plant, back_populates="users")
 
-    # @hybrid_property
-    # def password_hash(self):
-    #     raise AttributeError("")
+    @hybrid_property
+    def password_hash(self):
+        raise AttributeError("Password hashes cannot be viewed!")
 
     @password_hash.setter
     def password_hash(self, password):
