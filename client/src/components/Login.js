@@ -1,39 +1,21 @@
 import React, { useState } from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 function Login({ setUser }) {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const formSchema = yup
 
-    function handleSubmit(event) {
-        event.preventDefault();
-
-        fetch("/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ username, password })
-        })
-        .then((res) => {
-            if (res.ok) {
-                res.json().then((user) => setUser(user))
-            }
-        })
-    }
+    const formik = useFormik({
+        initialValues: {
+            username: "",
+        }
+    })
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <h1>Welcome Back!</h1>
-                <p>Please Enter Your Login Info</p>
-                
-
-                <input type="text" id="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-
-                
-                <input type="password" id="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-
-                <button type="submit">Login</button>
+            <form autoComplete="off">
+                <label htmlFor="username">Username</label>
+                <input id="username" type="text" value={formik.values.username} onChange={formik.handleChange} placeholder="Enter your username" />
             </form>
         </div>
     )
