@@ -16,7 +16,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String)
-    accountType = db.Column(db.String) # Maybe get rid of accountType later...
+    # accountType = db.Column(db.String) # Maybe get rid of accountType later...
 
     posts = db.relationship("Post", backref="user")
     plants = db.relationship("Plant", secondary=user_plant, back_populates="users")

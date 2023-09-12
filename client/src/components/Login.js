@@ -14,7 +14,18 @@ function Login({setUser}) {
         },
         validationSchema: formSchema,
         onSubmit: (values) => {
-            setUser(values.username)
+            fetch("/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(values)
+            })
+            .then((res) => {
+                if (res.status == 200) {
+                    setUser(values.username)
+                }
+            })
         }
     });
 

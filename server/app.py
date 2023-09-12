@@ -35,6 +35,14 @@ class Login(Resource):
         
         return {"error": "401 Unauthorized"}, 401
 
+class Signup(Resource):
+    def post(self):
+        username = request.get_json().get("username")
+        password = request.get_json().get("password")
+
+        if username and password:
+            new_user = User(username=username)
+
 
 api.add_resource(Login, "/login", endpoint="login")
 api.add_resource(CheckSession, "/check_session", endpoint="check_session")

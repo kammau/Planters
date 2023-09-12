@@ -30,19 +30,11 @@ function App() {
                 </Route>
             </Switch>
         ) : (
-          // <div>
-          //   <h3 onClick={() => setView("login")}>Login</h3>
-          //   <h3 onClick={() => setView("signup")}>Signup</h3>
-          //   <h3 onClick={() => console.log(user)}>Show</h3>
-          // </div>
-          <Switch>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/signup">
-              <Signup />
-            </Route>
-          </Switch>
+          <div>
+            <h3 onClick={() => setView("login")}>Login</h3>
+            <h3 onClick={() => setView("signup")}>Signup</h3>
+            <h3 onClick={() => console.log(user)}>Show</h3>
+          </div>
         )}
       </nav>
       {view === "login" ? <Login setUser={setUser}/> : <Signup />}
