@@ -35,7 +35,6 @@ if __name__ == '__main__':
         for i in range(25):
             user = User(
                 username=fake.user_name(),
-                accountType=random.choice(accountTypes)
             )
             users.append(user)
         

@@ -10,7 +10,7 @@ user_plant = db.Table(
     db.Column("plant_id", db.Integer, db.ForeignKey("plants.id"))
 )
 
-class User(db.Model):
+class User(db.Model, SerializerMixin):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -39,7 +39,7 @@ class User(db.Model):
     def __repr__(self):
         return f"<User {self.username} | {self.accountType}>"
 
-class Post(db.Model):
+class Post(db.Model, SerializerMixin):
     __tablename__ = "posts"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -52,7 +52,7 @@ class Post(db.Model):
     def __repr__(self):
         return f"<Post {self.genre} | {self.user_id}>"
 
-class Plant(db.Model):
+class Plant(db.Model, SerializerMixin):
     __tablename__ = "plants"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -66,7 +66,7 @@ class Plant(db.Model):
     def __repr__(self):
         return f"<Plant {self.common_name} | {self.scientific_name} | {self.growing_level}>"
 
-class Forum(db.Model):
+class Forum(db.Model, SerializerMixin):
     __tablename__ = "forums"
 
     id = db.Column(db.Integer, primary_key=True)

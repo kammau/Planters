@@ -22,7 +22,7 @@ function Login({setUser}) {
                 body: JSON.stringify(values)
             })
             .then((res) => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     setUser(values.username)
                 }
             })

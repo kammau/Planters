@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import Login from "./Login";
-import Forums from "./Forums";
-import PlantCollection from "./PlantCollection";
 import Signup from "./Signup";
+import Home from "./Home";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [view, setView] = useState("login")
 
   useEffect(() => {
     fetch("/check_session")
@@ -21,23 +19,26 @@ function App() {
 
 
   return (
-    <div className="App">
-      <nav>
+    <div>
+      <NavBar user={user} setUser={setUser} />
+      <main>
         {user ? (
-              <Switch>
-                <Route path="/forums">
-                  <Forums />
-                </Route>
-            </Switch>
+          <Switch>
+            <Route path="/">
+              <Home user={user} />
+            </Route>
+          </Switch>
         ) : (
-          <div>
-            <h3 onClick={() => setView("login")}>Login</h3>
-            <h3 onClick={() => setView("signup")}>Signup</h3>
-            <h3 onClick={() => console.log(user)}>Show</h3>
-          </div>
+          <Switch>
+            <Route path="/login">
+              <Login setUser={setUser} />
+            </Route>
+            <Route path="/signup">
+              <Signup setUser={setUser} />
+            </Route>
+          </Switch>
         )}
-      </nav>
-      {view === "login" ? <Login setUser={setUser}/> : <Signup />}
+      </main>
     </div>
   );
 }
