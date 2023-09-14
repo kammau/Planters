@@ -2,29 +2,40 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 const linkStyles = {
-    text: "center"
+    "textDecoration": "none",
+    "color": "white"
+    
 }
 
 function NavBar({user, setUser}) {
+    function handleLogout() {
+        fetch("/logout", {
+            method: "DELETE"
+        })
+        .then((res) => {
+            if (res.ok) {
+                setUser(null)
+            }
+        })
+    }
+
+
     return (
-        <div className= "NavLinks">
+        <div className="NavLinks">
             {user ? (
                 <>
-                    <NavLink to="/collection" exact style={linkStyles}>Plant Collection</NavLink>
-                    <NavLink to="/forums" exact style={linkStyles}>Forums</NavLink>
+                    <NavLink to="/collection" exact>Plant Collection</NavLink>
+                    <NavLink to="/forums" exact>Forums</NavLink>
                     <button onClick={handleLogout}>Logout</button>
                 </>
             ) : (
-                <>
-                    <NavLink to="/login" exact style={linkStyles}>Login</NavLink>
-                    <NavLink to="/signup" exact style={linkStyles}>Signup</NavLink>
-                </>
+                <div>
+                    <button className="logButtons"><NavLink to="/login" exact style={linkStyles}>Login</NavLink></button>
+                    <button className="logButtons"><NavLink to="/signup" exact style={linkStyles}>Signup</NavLink></button>
+                </div>
             )}
         </div>
     )
 }
 
 export default NavBar;
-
-// <NavLink to="/collection" exact style={linkStyles}>Plant Collection</NavLink>
-// <NavLink to="/forums" exact style={linkStyles}>Forums</NavLink>

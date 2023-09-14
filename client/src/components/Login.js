@@ -30,13 +30,12 @@ function Login({setUser}) {
     });
 
     return (
-        <div>
+        <div className="login">
             <form autoComplete="off" onSubmit={formik.handleSubmit}>
-                <label htmlFor="username">Username</label>
-                <input id="username" type="text" value={formik.values.username} onChange={formik.handleChange} placeholder="Enter your username" />
+            
+                <input id="username" type="text" value={formik.values.username} onChange={formik.handleChange} placeholder="Username" className="loginInput"/>
                 
-                <label htmlFor="password">Password</label>
-                <input id="password" type="password" value={formik.values.password} onChange={formik.handleChange} placeholder="Enter your password" />
+                <input id="password" type="password" value={formik.values.password} onChange={formik.handleChange} placeholder="Password" className="loginInput"/>
 
                 <button type="submit">Submit</button>
             </form>

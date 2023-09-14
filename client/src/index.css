@@ -5,3 +5,41 @@
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
+.NavLinks {
+  text-align: center;
+  background-image: url("https://img.freepik.com/free-vector/floral-linear-design-background_23-2149130877.jpg");
+}
+
+.logButtons {
+  border: none;
+  padding: 15px;
+  background-color: #000099;
+  border-radius: 10px;
+  margin: 15px;
+}
+
+.logButtons:hover {
+  background-color: blue;
+  transition: 0.7s;
+}
+
+.login {
+  background-image: url("https://images.pexels.com/photos/2409038/pexels-photo-2409038.jpeg?auto=compress&cs=tinysrgb&w=400");
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+
+.loginInput {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid gray;
+  outline: 0;
+  font-size: 1.3rem;
+  color: white;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
