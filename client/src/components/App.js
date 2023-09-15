@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
-import Login from "./Login";
-import Signup from "./Signup";
 import Home from "./Home";
 import PlantCollection from "./PlantCollection"
 

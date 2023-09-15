@@ -27,7 +27,7 @@
   background-color: #293d3d;
   margin: auto;
   width: 500px;
-  height: 300px;
+  height: 400px;
   border-radius: 10px;
   box-shadow: 5px 5px 10px 2px #9b9b8a;
 }
@@ -102,5 +102,11 @@
   transition: 0.3s;
   background-color: #4f5a6f;
   border-color: #339933;
+}
+
+.homeForm_errors {
+  color: rgb(255, 1, 1);
+  font-weight: 100;
+  text-shadow: rgb(255, 255, 255);
 }
 
