@@ -31,13 +31,16 @@ function Login({setUser}) {
 
     return (
         <div className="login">
+            <h1 className="logsi_header">LOGIN</h1>
             <form autoComplete="off" onSubmit={formik.handleSubmit}>
-            
+
+                
                 <input id="username" type="text" value={formik.values.username} onChange={formik.handleChange} placeholder="Username" className="loginInput"/>
+                
                 
                 <input id="password" type="password" value={formik.values.password} onChange={formik.handleChange} placeholder="Password" className="loginInput"/>
 
-                <button type="submit">Submit</button>
+                <button type="submit" className="logsi_buttons">Login</button>
             </form>
         </div>
     )

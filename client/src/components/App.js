@@ -4,6 +4,7 @@ import NavBar from "./NavBar";
 import Login from "./Login";
 import Signup from "./Signup";
 import Home from "./Home";
+import PlantCollection from "./PlantCollection"
 
 function App() {
   const [user, setUser] = useState(null);
@@ -17,23 +18,25 @@ function App() {
 
   return (
     <div>
-      <NavBar user={user} setUser={setUser} />
       <main>
         {user ? (
-          <Switch>
-            <Route path="/">
-              <Home user={user} />
-            </Route>
-          </Switch>
+          <NavBar user={user} setUser={setUser}>
+            <Switch>
+              <Route path="/">
+                <PlantCollection user={user} />
+              </Route>
+            </Switch>
+          </NavBar>
         ) : (
-          <Switch>
-            <Route path="/login">
-              <Login setUser={setUser}/>
-            </Route>
-            <Route path="/signup">
-              <Signup setUser={setUser} />
-            </Route>
-          </Switch>
+          // <Switch>
+          //   <Route path="/login">
+          //     <Login setUser={setUser}/>
+          //   </Route>
+          //   <Route path="/signup">
+          //     <Signup setUser={setUser} />
+          //   </Route>
+          // </Switch>
+          <Home setUser={setUser} />
         )}
       </main>
     </div>

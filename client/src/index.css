@@ -24,13 +24,16 @@
 }
 
 .login {
-  background-image: url("https://images.pexels.com/photos/2409038/pexels-photo-2409038.jpeg?auto=compress&cs=tinysrgb&w=400");
-  position: fixed;
-  height: 100%;
-  width: 100%;
+  background-color: #293d3d;
+  margin: auto;
+  width: 500px;
+  height: 300px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px 2px #9b9b8a;
 }
 
 .loginInput {
+  margin-top: 50px;
   font-family: inherit;
   width: 100%;
   border: 0;
@@ -41,5 +44,63 @@
   padding: 7px 0;
   background: transparent;
   transition: border-color 0.2s;
+}
+
+
+
+.loginInput:focus {
+  padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 3px;
+  border-bottom: 2px solid greenyellow;
+}
+
+.loginInput:focus::placeholder {
+  color: transparent;
+}
+
+.logsi_header {
+  color: #669999;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.logsi_buttons {
+  background-color: #009999;
+  font-size: large;
+  color: white;
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+  border-color: white;
+}
+
+.logsi_buttons:hover {
+  cursor: pointer;
+  transition: 0.2s;
+  background-color: #007a7a;
+  border-color: #339933;
+}
+
+.home_buttons {
+  background-image: url("https://wallpaperaccess.com/thumb/5868292.jpg");
+  color: white;
+  text-align: center;
+}
+
+.home_btn {
+  background-color: #293d3d;
+  color: white;
+  width: 100px;
+  height: 50px;
+  border-radius: 15px;
+  margin-right: 30px;
+  border-color: white;
+}
+
+.home_btn:hover {
+  cursor: pointer;
+  transition: 0.3s;
+  background-color: #4f5a6f;
+  border-color: #339933;
 }
 
