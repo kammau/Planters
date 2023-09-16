@@ -1,8 +1,10 @@
 import React from "react";
 
-function PlantCollection() {
+function PlantCollection({user}) {
     return (
-        <h1>Welcome to your Plant Collection page!</h1>
+        <div>
+            <h1>Welcome to {user} Plant Collection page!</h1>
+        </div>
     )
 }
 

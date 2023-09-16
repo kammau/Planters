@@ -18,22 +18,15 @@ function App() {
     <div>
       <main>
         {user ? (
-          <NavBar user={user} setUser={setUser}>
-            <Switch>
-              <Route path="/">
-                <PlantCollection user={user} />
-              </Route>
-            </Switch>
-          </NavBar>
+          <div>
+            <NavBar user={user} setUser={setUser} />
+              <Switch>
+                <Route path="/collection">
+                  <PlantCollection user={user} />
+                </Route>
+              </Switch>
+          </div>
         ) : (
-          // <Switch>
-          //   <Route path="/login">
-          //     <Login setUser={setUser}/>
-          //   </Route>
-          //   <Route path="/signup">
-          //     <Signup setUser={setUser} />
-          //   </Route>
-          // </Switch>
           <Home setUser={setUser} />
         )}
       </main>

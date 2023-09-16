@@ -5,9 +5,25 @@
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
-.NavLinks {
+.nav_links {
+  margin-right: 50px;
+  text-decoration: none;
+  color: white;
+  background-color: #009933;
+  border: none;
+  width: 200px;
+  height: 50px;
+}
+
+.nav_links:hover {
+  background-color: #015b1f;
+  cursor: pointer;
+}
+
+#nav_bar {
   text-align: center;
-  background-image: url("https://img.freepik.com/free-vector/floral-linear-design-background_23-2149130877.jpg");
+  background-color: #2a542a;
+  height: 50px;
 }
 
 .logButtons {
@@ -62,6 +78,7 @@
 .logsi_header {
   color: #669999;
   font-family: Arial, Helvetica, sans-serif;
+  text-shadow: 2px 2px 2px white;
 }
 
 .logsi_buttons {
@@ -111,3 +128,19 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+#logout_btn {
+  background-color: #666699;
+  color: white;
+  border: none;
+  width: 100px;
+  height: 50px;
+  box-shadow: 2px 2px gray;
+  text-shadow: 2px 2px black;
+}
+
+#logout_btn:hover {
+  box-shadow: none;
+  right: 80px;
+  background-color: #49496b;
+  cursor: pointer;
+}

@@ -3,7 +3,7 @@ import { useState } from "react";
 import * as yup from "yup";
 
 function Login({setUser}) {
-    const [error, setError] = useState(false)
+    const [error, setError] = useState("false")
 
     const formSchema = yup.object().shape({
         username: yup.string().required("MUST ENTER USERNAME").max(10),
@@ -29,7 +29,7 @@ function Login({setUser}) {
                     setUser(values.username)
                 }
                 else if (res.status === 401) {
-                    setError(true)
+                    setError("true")
                 }
             })
         }
@@ -49,7 +49,7 @@ function Login({setUser}) {
 
                 <button type="submit" className="logsi_buttons">Login</button>
             </form>
-            {error === true ? <p className="homeForm_errors">OOPS... PLEASE ENTER VALID USER INFORMATION</p> : null}
+            {error === "true" ? <p className="homeForm_errors">OOPS... PLEASE ENTER VALID USER INFORMATION</p> : null}
         </div>
     )
 }
