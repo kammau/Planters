@@ -1,11 +1,13 @@
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 
 function Signup({setUser}) {
+    const [error, setError] = useState("false")
+
     const formSchema = yup.object().shape({
-        username: yup.string().required("Must enter a username").max(10),
-        password: yup.string().required("Must enter a password"),
+        username: yup.string().required("MUST ENTER A USERNAME").max(10),
+        password: yup.string().required("MUST ENTER A PASSWORD"),
     })
 
     const formik = useFormik({
@@ -23,8 +25,11 @@ function Signup({setUser}) {
                 body: JSON.stringify(values)
             })
             .then((res) => {
-                if (res.status === 200) {
+                if (res.status === 201) {
                     setUser(values.username)
+                }
+                else if (res.status === 422) {
+                    setError("true")
                 }
             })
         }
@@ -38,15 +43,16 @@ function Signup({setUser}) {
                 <input id="email" type="text" value={formik.values.email} onChange={formik.handleChange} placeholder="Enter Email" /> */}
                 
                 
-                <input id="username" type="text" value={formik.values.username} onChange={formik.handleChange} placeholder="Username" className="loginInput"/>
-                
+                <input id="username" type="text" value={formik.values.username} onChange={formik.handleChange} placeholder="Username (Max 10)" className="loginInput"/>
+                <p className="homeForm_errors">{formik.errors.username}</p>
                 
                 <input id="password" type="password" value={formik.values.password} onChange={formik.handleChange} placeholder="Password" className="loginInput"/>
-
+                <p className="homeForm_errors">{formik.errors.password}</p>
                 {/* <label htmlFor="confirmPass">Confirm Password</label>
                 <input id="confirmPass" type="password" value={formik.values.password} onChange={formik.handleChange} placeholder="Confirm Password" /> */}
                 <button type="submit" className="logsi_buttons">Signup</button>
             </form>
+            {error === "true" ? <p>OOPS... PLEASE ENTER VALID USER INFORMATION</p> : null}
         </div>
     )
 }
