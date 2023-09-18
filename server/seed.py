@@ -36,6 +36,8 @@ if __name__ == '__main__':
             user = User(
                 username=fake.user_name(),
             )
+            user.password_hash = "123"
+
             users.append(user)
         
         db.session.add_all(users)

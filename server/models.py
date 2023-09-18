@@ -37,7 +37,7 @@ class User(db.Model, SerializerMixin):
 
 
     def __repr__(self):
-        return f"<User {self.username} | {self.accountType}>"
+        return f"<User {self.username}>"
 
 class Post(db.Model, SerializerMixin):
     __tablename__ = "posts"
@@ -54,6 +54,8 @@ class Post(db.Model, SerializerMixin):
 
 class Plant(db.Model, SerializerMixin):
     __tablename__ = "plants"
+
+    serialize_rules = ("-users")
 
     id = db.Column(db.Integer, primary_key=True)
     common_name = db.Column(db.String)

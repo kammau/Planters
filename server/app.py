@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import Flask, request, session
+from flask import Flask, request, session, jsonify, make_response
 from flask_restful import Resource
 
 
@@ -54,9 +54,21 @@ class Signup(Resource):
         
         return {"error": "422 Unprocessable Entity"}, 422
 
+class Logout(Resource):
+    def delete(self):
+        session["user_id"] = None
+        return {"message": "204: No Content"}, 204
+
+class Plants(Resource):
+    def get(self):
+        plants = [plant.to_dict() for plant in Plant.query.all()]
+        return plants.to_dict, 200
+
 
 api.add_resource(Login, "/login", endpoint="login")
 api.add_resource(Signup, "/signup", endpoint="signup")
+api.add_resource(Logout, "/logout", endpoint="logout")
+api.add_resource(Plants, "/collection", endpoint="plants")
 api.add_resource(CheckSession, "/check_session", endpoint="check_session")
 
 if __name__ == '__main__':
