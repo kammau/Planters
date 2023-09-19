@@ -6,7 +6,7 @@ function Login({setUser}) {
     const [error, setError] = useState("false")
 
     const formSchema = yup.object().shape({
-        username: yup.string().required("MUST ENTER USERNAME").max(10),
+        username: yup.string().required("MUST ENTER USERNAME"),
         password: yup.string().required("MUST ENTER PASSWORD"),
     })
 

@@ -62,12 +62,32 @@ class Logout(Resource):
 class Plants(Resource):
     def get(self):
         plants = Plant.query.join(user_plant).join(User).filter((user_plant.c.user_id == session["user_id"]) & (user_plant.c.plant_id == Plant.id)).all()
+
+        plants_serialized = [plant.to_dict() for plant in plants]
         
-        if len(plants) > 0:
-            return make_response(plants.to_dict(), 200)
+        if len(plants_serialized) > 0:
+            return plants_serialized, 200
 
         else:
             return {"message": "404: No Content"}, 404
+
+    def post(self):
+        data = request.get_json()
+        user = User.query.filter(User.id == session["user_id"]).first()
+
+        new_plant = Plant(
+            common_name=data["common_name"],
+            scientific_name=data["scientific_name"],
+            growing_level=data["growing_level"],
+            img=data["img"],
+        )
+
+        db.session.add(new_plant)
+        user.plants.append(new_plant)
+
+        db.session.commit()
+
+        return new_plant.to_dict(), 201
 
 api.add_resource(Login, "/login", endpoint="login")
 api.add_resource(Signup, "/signup", endpoint="signup")
