@@ -55,7 +55,7 @@ class Post(db.Model, SerializerMixin):
 class Plant(db.Model, SerializerMixin):
     __tablename__ = "plants"
 
-    serialize_rules = ("-users")
+    serialize_rules = ("-users",)
 
     id = db.Column(db.Integer, primary_key=True)
     common_name = db.Column(db.String)

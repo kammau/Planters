@@ -9,7 +9,7 @@ from flask_restful import Resource
 
 # Local imports
 from config import app, db, api
-from models import db, User, Post, Plant, Forum
+from models import db, User, Post, Plant, Forum, user_plant
 
 app.secret_key = b'Q\xd9\x0c\xf0\xec\x1e!\xdb\xae6\x08\x0cuf\x95\xf9'
 
@@ -61,9 +61,13 @@ class Logout(Resource):
 
 class Plants(Resource):
     def get(self):
-        plants = [plant.to_dict() for plant in Plant.query.all()]
-        return plants.to_dict, 200
+        plants = Plant.query.join(user_plant).join(User).filter((user_plant.c.user_id == session["user_id"]) & (user_plant.c.plant_id == Plant.id)).all()
+        
+        if len(plants) > 0:
+            return make_response(plants.to_dict(), 200)
 
+        else:
+            return {"message": "404: No Content"}, 404
 
 api.add_resource(Login, "/login", endpoint="login")
 api.add_resource(Signup, "/signup", endpoint="signup")
