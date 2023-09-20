@@ -89,10 +89,27 @@ class Plants(Resource):
 
         return new_plant.to_dict(), 201
 
+class PlantByID(Resource):
+    def get(self, id):
+        plant = Plant.query.filter(Plant.id == id).first()
+
+        return plant.to_dict(), 200
+    
+    def post(self, id):
+        pass
+    
+    def patch(self, id):
+        pass
+
+    def delete(self, id):
+        pass
+        
+
 api.add_resource(Login, "/login", endpoint="login")
 api.add_resource(Signup, "/signup", endpoint="signup")
 api.add_resource(Logout, "/logout", endpoint="logout")
 api.add_resource(Plants, "/collection", endpoint="plants")
+api.add_resource(PlantByID, "/collection/<int:id>")
 api.add_resource(CheckSession, "/check_session", endpoint="check_session")
 
 if __name__ == '__main__':
