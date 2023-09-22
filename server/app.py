@@ -16,12 +16,12 @@ app.secret_key = b'Q\xd9\x0c\xf0\xec\x1e!\xdb\xae6\x08\x0cuf\x95\xf9'
 
 class CheckSession(Resource):
     def get(self):
-        if session.get("user.id"):
-            user = User.query.filter(User.id == session["user_id"]).first()
-
+        user_id = session["user_id"]
+        if user_id:
+            user = User.query.filter(User.id == user_id).first()
             return user.to_dict(), 200
 
-        return {"error": "401 Unauthorized"}, 401
+        return {}, 401
 
 class Login(Resource):
     def post(self):
@@ -99,17 +99,32 @@ class PlantByID(Resource):
         pass
     
     def patch(self, id):
-        pass
+        data = request.get_json()
+
+        plant = Plant.query.filter(Plant.id == id).first()
+
+        for attr in data:
+            setattr(plant, attr, data[attr])
+
+        db.session.add(plant)
+        db.session.commit()
+
+        return plant.to_dict(), 202
 
     def delete(self, id):
-        pass
+        plant = Plant.query.filter(Plant.id == id).first()
+
+        db.session.delete(plant)
+        db.session.commit()
+
+        return {}, 204
         
 
 api.add_resource(Login, "/login", endpoint="login")
 api.add_resource(Signup, "/signup", endpoint="signup")
 api.add_resource(Logout, "/logout", endpoint="logout")
-api.add_resource(Plants, "/collection", endpoint="plants")
-api.add_resource(PlantByID, "/collection/<int:id>")
+api.add_resource(Plants, "/plants", endpoint="plants")
+api.add_resource(PlantByID, "/plants/<int:id>", endpoint="plant_by_id")
 api.add_resource(CheckSession, "/check_session", endpoint="check_session")
 
 if __name__ == '__main__':
