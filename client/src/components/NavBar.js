@@ -1,14 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-function NavBar({user, setUser}) {
+function NavBar({user, handleLogin, onLogout}) {
+    
     function handleLogout() {
         fetch("/logout", {
             method: "DELETE"
         })
         .then((res) => {
             if (res.ok) {
-                setUser(null)
+                onLogout()
             }
         })
     }
@@ -16,9 +17,18 @@ function NavBar({user, setUser}) {
 
     return (
         <div id="nav_bar">
-            <NavLink to="/collection" exact user={user}><button className="nav_links">Plant Collection</button></NavLink>
-            <NavLink to="/forums" exact user={user}><button className="nav_links">Forums</button></NavLink>
-            <button onClick={handleLogout} id="logout_btn">LOGOUT</button>
+            {user ? (
+                <>
+                    <NavLink to="/plants" exact user={user}><button className="nav_links">Plant Collection</button></NavLink>
+                    <NavLink to="/forums" exact user={user}><button className="nav_links">Forums</button></NavLink>
+                    <button onClick={handleLogout} id="logout_btn">LOGOUT</button>
+                </>
+            ) : (
+                <>
+                    <NavLink to="/login" exact handleLogin={handleLogin}><button className="home_btn">Login</button></NavLink>
+                    <NavLink to="/signup" handleLogin={handleLogin}><button className="home_btn">Signup</button></NavLink>
+                </>
+            )}
         </div>
     )
 }

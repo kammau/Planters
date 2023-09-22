@@ -2,11 +2,11 @@ import { useFormik } from "formik";
 import React, { useState } from "react";
 import * as yup from "yup";
 
-function Signup({setUser}) {
+function Signup({handleLogin}) {
     const [error, setError] = useState("false")
 
     const formSchema = yup.object().shape({
-        username: yup.string().required("MUST ENTER A USERNAME").max(10),
+        username: yup.string().required("MUST ENTER A USERNAME"),
         password: yup.string().required("MUST ENTER A PASSWORD"),
     })
 
@@ -26,7 +26,7 @@ function Signup({setUser}) {
             })
             .then((res) => {
                 if (res.status === 201) {
-                    setUser(values.username)
+                    handleLogin(values.username)
                 }
                 else if (res.status === 422) {
                     setError("true")

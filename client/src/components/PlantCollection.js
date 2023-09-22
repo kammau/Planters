@@ -3,9 +3,41 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import PlantCard from "./PlantCard";
 
-function PlantCollection({user}) {
-    const [noPlants, setNoPlants] = useState("false")
+function PlantCollection() {
     const [plants, setPlants] = useState([])
+    const [noPlants, setNoPlants] = useState(false)
+
+    useEffect(() => {
+        fetch("/plants")
+        .then((res) => {
+            if (res.ok) {
+                res.json().then((res) => {
+                    setPlants(res)
+                })
+            } else {
+                setNoPlants(true)
+            }
+        })
+    }, [])
+
+    function handleUpdate(updatedPlant) {
+        if (plants.length > 0) {
+            let filteredPlants = plants.filter((plant) => plant.id !== updatedPlant.id)
+            setPlants([updatedPlant, ...filteredPlants])
+        } else {
+            setPlants([updatedPlant])
+        }
+    }
+
+    function handleDelete(deletedPlant) {
+        if (plants.length > 0) {
+            let filteredPlants = plants.filter((plant) => plant.id !== deletedPlant.id)
+            setPlants([...filteredPlants])
+        } else {
+            setPlants([])
+            setNoPlants(true)
+        }
+    }
 
     const formSchema = yup.object().shape({
         common_name: yup.string().required("MUST ENTER A COMMON NAME"),
@@ -14,17 +46,6 @@ function PlantCollection({user}) {
         img: yup.string().required("MUST ENTER IMAGE URL")
     })
 
-    useEffect(() => {
-        fetch("/collection")
-        .then((res) => {
-            if (res.status === 404) {
-                setNoPlants("true")
-            } else {
-                return res.json()
-            }
-        })
-        .then((res) => setPlants(res))
-    }, [])
 
     const formik = useFormik({
         initialValues: {
@@ -34,8 +55,8 @@ function PlantCollection({user}) {
             img: "",
         },
         validationSchema: formSchema,
-        onSubmit: (values) => {
-            fetch("/collection", {
+        onSubmit: (values, {resetForm}) => {
+            fetch("/plants", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -44,7 +65,14 @@ function PlantCollection({user}) {
             })
             .then((res) => res.json())
             .then((res) => {
-                setPlants([...plants, res])
+                if (noPlants === true) {
+                    setPlants([res])
+                    setNoPlants(false)
+                } else {
+                    const updatedPlants = [...plants, res]
+                    setPlants(updatedPlants)
+                }
+                resetForm({ values: "" })
             })
         }
     })
@@ -63,8 +91,8 @@ function PlantCollection({user}) {
 
                 <button type="submit">Add</button>
             </form>
-            <h1>Welcome to {user} Plant Collection page!</h1>
-            {noPlants === "true" ? <p>Look's like you don't have any plants!</p> : plants.map((plant) => <PlantCard key={plant.id} plant={plant} />)}
+            <h1>Welcome to your Plant Collection page!</h1>
+            {noPlants === true ? <p>Look's like you don't have any plant's yet!</p> : plants.map((plant) => <PlantCard key={plant.id} plant={plant} onUpdate={handleUpdate} onDelete={handleDelete}/>)}
         </div>
     )
 }

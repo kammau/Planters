@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import * as yup from "yup";
 
-function Login({setUser}) {
+function Login({handleLogin}) {
     const [error, setError] = useState("false")
 
     const formSchema = yup.object().shape({
@@ -26,7 +26,7 @@ function Login({setUser}) {
             })
             .then((res) => {
                 if (res.status === 200) {
-                    setUser(values.username)
+                    handleLogin(values.username)
                 }
                 else if (res.status === 401) {
                     setError("true")

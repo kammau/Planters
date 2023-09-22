@@ -9,7 +9,7 @@ from flask_restful import Resource
 
 # Local imports
 from config import app, db, api
-from models import db, User, Post, Plant, Forum, user_plant
+from models import db, User, Post, Plant, user_plant
 
 app.secret_key = b'Q\xd9\x0c\xf0\xec\x1e!\xdb\xae6\x08\x0cuf\x95\xf9'
 

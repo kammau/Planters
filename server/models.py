@@ -47,7 +47,6 @@ class Post(db.Model, SerializerMixin):
     genre = db.Column(db.String)
 
     user_id = db.Column(db.Integer(), db.ForeignKey("users.id"))
-    forum_id = db.Column(db.Integer(), db.ForeignKey("forums.id"))
 
     def __repr__(self):
         return f"<Post {self.genre} | {self.user_id}>"
@@ -58,8 +57,8 @@ class Plant(db.Model, SerializerMixin):
     serialize_rules = ("-users",)
 
     id = db.Column(db.Integer, primary_key=True)
-    common_name = db.Column(db.String)
-    scientific_name = db.Column(db.String)
+    common_name = db.Column(db.String, unique=True)
+    scientific_name = db.Column(db.String, unique=True)
     growing_level = db.Column(db.Integer) 
     img = db.Column(db.String)
 
@@ -68,16 +67,3 @@ class Plant(db.Model, SerializerMixin):
     def __repr__(self):
         return f"<Plant {self.common_name} | {self.scientific_name} | {self.growing_level}>"
 
-class Forum(db.Model, SerializerMixin):
-    __tablename__ = "forums"
-
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String)
-    followers = db.Column(db.Integer)
-
-    # Maybe add a number of posts
-
-    posts = db.relationship("Post", backref="forum")
-
-    def __repr__(self):
-        return f"<Forum {self.title} | {self.followers}"

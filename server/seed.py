@@ -9,7 +9,7 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db, User, Post, Plant, Forum, user_plant
+from models import db, User, Post, Plant, user_plant
 
 if __name__ == '__main__':
     fake = Faker()
@@ -19,7 +19,6 @@ if __name__ == '__main__':
         User.query.delete()
         Post.query.delete()
         Plant.query.delete()
-        Forum.query.delete()
 
         # Sample Data:
         accountTypes = ["Guide", "Planter"]
@@ -48,8 +47,7 @@ if __name__ == '__main__':
             post = Post(
                 content=fake.sentence(nb_words=5),
                 genre=random.choice(genres),
-                user_id=random.randint(1, 25),
-                forum_id=random.randint(1, 25)
+                user_id=random.randint(1, 25)
             )
             posts.append(post)
 
@@ -57,10 +55,10 @@ if __name__ == '__main__':
 
         print("Seeding Plants...")
         plants = []
-        for i in range(25):
+        for i in common_names and scientific_names:
             plant = Plant(
-                common_name=random.choice(common_names),
-                scientific_name=random.choice(scientific_names),
+                common_name=i,
+                scientific_name=i,
                 img=random.choice(plant_imgs),
                 growing_level=random.choice(growing_levels)
             )
@@ -69,15 +67,6 @@ if __name__ == '__main__':
         db.session.add_all(plants)
 
         print("Seeding Forums...")
-        forums = []
-        for i in range(25):
-            forum = Forum(
-                title=random.choice(titles),
-                followers=random.randint(1, 500)
-            )
-            forums.append(forum)
-
-        db.session.add_all(forums)
 
         # Maybe change to plant and usernames instead of id later?...
         for plant in plants:
