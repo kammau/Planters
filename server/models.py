@@ -16,7 +16,6 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String)
-    # accountType = db.Column(db.String) # Maybe get rid of accountType later...
 
     posts = db.relationship("Post", backref="user")
     plants = db.relationship("Plant", secondary=user_plant, back_populates="users")
@@ -42,11 +41,14 @@ class User(db.Model, SerializerMixin):
 class Post(db.Model, SerializerMixin):
     __tablename__ = "posts"
 
+    serialize_rules = ("-user.posts", "-plants.posts")
+
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String)
     genre = db.Column(db.String)
 
-    user_id = db.Column(db.Integer(), db.ForeignKey("users.id"))
+    user = db.Column(db.String(), db.ForeignKey("users.username"))
+    plant = db.Column(db.Integer(), db.ForeignKey("plants.common_name"))
 
     def __repr__(self):
         return f"<Post {self.genre} | {self.user_id}>"
@@ -54,7 +56,7 @@ class Post(db.Model, SerializerMixin):
 class Plant(db.Model, SerializerMixin):
     __tablename__ = "plants"
 
-    serialize_rules = ("-users",)
+    serialize_rules = ("-users.plants",)
 
     id = db.Column(db.Integer, primary_key=True)
     common_name = db.Column(db.String, unique=True)
@@ -63,6 +65,7 @@ class Plant(db.Model, SerializerMixin):
     img = db.Column(db.String)
 
     users = db.relationship("User", secondary=user_plant, back_populates="plants")
+    posts = db.relationship("Post", backref="plant")
 
     def __repr__(self):
         return f"<Plant {self.common_name} | {self.scientific_name} | {self.growing_level}>"

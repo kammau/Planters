@@ -16,8 +16,8 @@ if __name__ == '__main__':
     with app.app_context():
         print("Starting seed...")
         
-        User.query.delete()
         Post.query.delete()
+        User.query.delete()
         Plant.query.delete()
 
         # Sample Data:
@@ -41,18 +41,6 @@ if __name__ == '__main__':
         
         db.session.add_all(users)
 
-        print("Seeding Posts...")
-        posts = []
-        for i in range(50):
-            post = Post(
-                content=fake.sentence(nb_words=5),
-                genre=random.choice(genres),
-                user_id=random.randint(1, 25)
-            )
-            posts.append(post)
-
-        db.session.add_all(posts)
-
         print("Seeding Plants...")
         plants = []
         for i in common_names and scientific_names:
@@ -66,7 +54,18 @@ if __name__ == '__main__':
 
         db.session.add_all(plants)
 
-        print("Seeding Forums...")
+        print("Seeding Posts...")
+        posts = []
+        for i in range(50):
+            post = Post(
+                content=fake.sentence(nb_words=5),
+                genre=random.choice(genres),
+                user=random.choice(users),
+                plant=random.choice(plants)
+            )
+            posts.append(post)
+
+        db.session.add_all(posts)
 
         # Maybe change to plant and usernames instead of id later?...
         for plant in plants:

@@ -118,6 +118,12 @@ class PlantByID(Resource):
         db.session.commit()
 
         return {}, 204
+
+class Posts(Resource):
+    def get(self):
+        posts = [post.to_dict() for post in Post.query.all()]
+
+        return posts, 200
         
 
 api.add_resource(Login, "/login", endpoint="login")
@@ -125,6 +131,7 @@ api.add_resource(Signup, "/signup", endpoint="signup")
 api.add_resource(Logout, "/logout", endpoint="logout")
 api.add_resource(Plants, "/plants", endpoint="plants")
 api.add_resource(PlantByID, "/plants/<int:id>", endpoint="plant_by_id")
+api.add_resource(Posts, "/posts", endpoint="posts")
 api.add_resource(CheckSession, "/check_session", endpoint="check_session")
 
 if __name__ == '__main__':
