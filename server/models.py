@@ -17,7 +17,7 @@ class User(db.Model, SerializerMixin):
     username = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String)
 
-    posts = db.relationship("Post", backref="user")
+    # posts = db.relationship("Post", backref="user")
     plants = db.relationship("Plant", secondary=user_plant, back_populates="users")
 
     @hybrid_property
@@ -36,22 +36,23 @@ class User(db.Model, SerializerMixin):
 
 
     def __repr__(self):
-        return f"<User {self.username}>"
+        return f"{self.username}"
 
 class Post(db.Model, SerializerMixin):
     __tablename__ = "posts"
 
-    serialize_rules = ("-user.posts", "-plants.posts")
+    serialize_rules = ("-users.posts", "-plants.posts")
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String)
     genre = db.Column(db.String)
+    img = db.Column(db.String, nullable=True)
 
-    user = db.Column(db.String(), db.ForeignKey("users.username"))
-    plant = db.Column(db.Integer(), db.ForeignKey("plants.common_name"))
+    user = db.Column(db.String, db.ForeignKey("users.username"))
+    plant = db.Column(db.String, db.ForeignKey("plants.common_name"))
 
     def __repr__(self):
-        return f"<Post {self.genre} | {self.user_id}>"
+        return f"<Post {self.genre} | {self.user}>"
 
 class Plant(db.Model, SerializerMixin):
     __tablename__ = "plants"
@@ -65,8 +66,8 @@ class Plant(db.Model, SerializerMixin):
     img = db.Column(db.String)
 
     users = db.relationship("User", secondary=user_plant, back_populates="plants")
-    posts = db.relationship("Post", backref="plant")
+    # posts = db.relationship("Post", backref="plant")
 
     def __repr__(self):
-        return f"<Plant {self.common_name} | {self.scientific_name} | {self.growing_level}>"
+        return f"{self.common_name}"
 

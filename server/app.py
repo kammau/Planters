@@ -95,9 +95,6 @@ class PlantByID(Resource):
 
         return plant.to_dict(), 200
     
-    def post(self, id):
-        pass
-    
     def patch(self, id):
         data = request.get_json()
 
@@ -124,6 +121,22 @@ class Posts(Resource):
         posts = [post.to_dict() for post in Post.query.all()]
 
         return posts, 200
+
+    def post(self):
+        data = request.get_json()
+        
+        new_post = Post(
+            content=data["content"],
+            genre=data["genre"],
+            img=data["img"],
+            user=data["user"],
+            plant=data["plant"]
+        )
+
+        db.session.add(new_post)
+        db.session.commit()
+
+        return new_post.to_dict(), 201
         
 
 api.add_resource(Login, "/login", endpoint="login")

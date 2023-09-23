@@ -16,9 +16,9 @@ if __name__ == '__main__':
     with app.app_context():
         print("Starting seed...")
         
-        Post.query.delete()
         User.query.delete()
         Plant.query.delete()
+        Post.query.delete()
 
         # Sample Data:
         accountTypes = ["Guide", "Planter"]
@@ -40,6 +40,7 @@ if __name__ == '__main__':
             users.append(user)
         
         db.session.add_all(users)
+        print(users)
 
         print("Seeding Plants...")
         plants = []
@@ -56,14 +57,9 @@ if __name__ == '__main__':
 
         print("Seeding Posts...")
         posts = []
-        for i in range(50):
-            post = Post(
-                content=fake.sentence(nb_words=5),
-                genre=random.choice(genres),
-                user=random.choice(users),
-                plant=random.choice(plants)
-            )
-            posts.append(post)
+
+        post1 = Post(content="Love my plant!", genre="Post", img="https://www.creativefabrica.com/wp-content/uploads/2021/03/17/kawaii-cute-potted-plant-Graphics-9699063-1-580x386.jpg", user=f"{users[1]}", plant=f"{plants[1]}")
+        posts.append(post1)
 
         db.session.add_all(posts)
 
