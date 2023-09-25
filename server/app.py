@@ -59,7 +59,14 @@ class Logout(Resource):
         session["user_id"] = None
         return {"message": "204: No Content"}, 204
 
+
 class Plants(Resource):
+    def get(self):
+        plants = [plant.to_dict() for plant in Plant.query.all()]
+
+        return plants, 200
+
+class UserPlants(Resource):
     def get(self):
         plants = Plant.query.join(user_plant).join(User).filter((user_plant.c.user_id == session["user_id"]) & (user_plant.c.plant_id == Plant.id)).all()
 
@@ -89,7 +96,7 @@ class Plants(Resource):
 
         return new_plant.to_dict(), 201
 
-class PlantByID(Resource):
+class UserPlantByID(Resource):
     def get(self, id):
         plant = Plant.query.filter(Plant.id == id).first()
 
@@ -143,7 +150,8 @@ api.add_resource(Login, "/login", endpoint="login")
 api.add_resource(Signup, "/signup", endpoint="signup")
 api.add_resource(Logout, "/logout", endpoint="logout")
 api.add_resource(Plants, "/plants", endpoint="plants")
-api.add_resource(PlantByID, "/plants/<int:id>", endpoint="plant_by_id")
+api.add_resource(UserPlants, "/user_plants", endpoint="user_plants")
+api.add_resource(UserPlantByID, "/user_plants/<int:id>", endpoint="user_plant_by_id")
 api.add_resource(Posts, "/posts", endpoint="posts")
 api.add_resource(CheckSession, "/check_session", endpoint="check_session")
 

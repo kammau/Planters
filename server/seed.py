@@ -16,9 +16,9 @@ if __name__ == '__main__':
     with app.app_context():
         print("Starting seed...")
         
-        User.query.delete()
-        Plant.query.delete()
-        Post.query.delete()
+        # User.query.delete()
+        # Plant.query.delete()
+        # Post.query.delete()
 
         # Sample Data:
         accountTypes = ["Guide", "Planter"]
@@ -49,7 +49,7 @@ if __name__ == '__main__':
                 common_name=i,
                 scientific_name=i,
                 img=random.choice(plant_imgs),
-                growing_level=random.choice(growing_levels)
+                growing_level=random.randint(1, 5)
             )
             plants.append(plant)
 

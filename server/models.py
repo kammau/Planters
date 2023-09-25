@@ -60,8 +60,8 @@ class Plant(db.Model, SerializerMixin):
     serialize_rules = ("-users.plants",)
 
     id = db.Column(db.Integer, primary_key=True)
-    common_name = db.Column(db.String, unique=True)
-    scientific_name = db.Column(db.String, unique=True)
+    common_name = db.Column(db.String)
+    scientific_name = db.Column(db.String)
     growing_level = db.Column(db.Integer) 
     img = db.Column(db.String)
 

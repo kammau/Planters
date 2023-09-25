@@ -8,7 +8,7 @@ function PlantCollection() {
     const [noPlants, setNoPlants] = useState(false)
 
     useEffect(() => {
-        fetch("/plants")
+        fetch("/user_plants")
         .then((res) => {
             if (res.ok) {
                 res.json().then((res) => {
@@ -56,7 +56,7 @@ function PlantCollection() {
         },
         validationSchema: formSchema,
         onSubmit: (values, {resetForm}) => {
-            fetch("/plants", {
+            fetch("/user_plants", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -82,12 +82,16 @@ function PlantCollection() {
         <div>
             <form onSubmit={formik.handleSubmit}>
                 <input type="text" id="common_name" placeholder="Common Name" value={formik.values.common_name} onChange={formik.handleChange}/>
+                <p>{formik.errors.common_name}</p>
 
                 <input type="text" id="scientific_name" placeholder="Scientific Name" value={formik.values.scientific_name} onChange={formik.handleChange}/>
+                <p>{formik.errors.scientific_name}</p>
 
                 <input type="number" id="growing_level" placeholder="Growing Level (1-5)" min="1" max="5" value={formik.values.growing_level} onChange={formik.handleChange}/>
+                <p>{formik.errors.growing_level}</p>
 
                 <input type="text" id="img" placeholder="Image URL" value={formik.values.img} onChange={formik.handleChange}/>
+                <p>{formik.errors.img}</p>
 
                 <button type="submit">Add</button>
             </form>

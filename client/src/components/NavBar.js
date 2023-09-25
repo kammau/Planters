@@ -19,14 +19,15 @@ function NavBar({user, handleLogin, onLogout}) {
         <div id="nav_bar">
             {user ? (
                 <>
-                    <NavLink to="/plants" exact user={user}><button className="nav_links">Plant Collection</button></NavLink>
-                    <NavLink to="/forums" exact user={user}><button className="nav_links">Forums</button></NavLink>
+                    <NavLink to="/plants" exact user={user}><button className="nav_links">Plants</button></NavLink>
+                    <NavLink to="/user_plants" exact user={user}><button className="nav_links">My Plant Collection</button></NavLink>
+                    <NavLink to="/posts" exact user={user}><button className="nav_links">Posts</button></NavLink>
                     <button onClick={handleLogout} id="logout_btn">LOGOUT</button>
                 </>
             ) : (
                 <>
-                    <NavLink to="/login" exact handleLogin={handleLogin}><button className="home_btn">Login</button></NavLink>
-                    <NavLink to="/signup" handleLogin={handleLogin}><button className="home_btn">Signup</button></NavLink>
+                    <NavLink to="/login" exact ><button className="home_btn">Login</button></NavLink>
+                    <NavLink to="/signup" ><button className="home_btn">Signup</button></NavLink>
                 </>
             )}
         </div>

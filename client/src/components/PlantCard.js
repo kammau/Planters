@@ -6,7 +6,7 @@ function PlantCard({plant, onUpdate, onDelete}) {
 
     function handleDelete(plant) {
         onDelete(plant)
-        fetch(`/plants/${plant.id}`, {
+        fetch(`/user_plants/${plant.id}`, {
             method: "DELETE",
         })
     }
@@ -19,7 +19,7 @@ function PlantCard({plant, onUpdate, onDelete}) {
             img: plant.img,
         },
         onSubmit: (values) => {
-            fetch(`/plants/${plant.id}`, {
+            fetch(`/user_plants/${plant.id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",

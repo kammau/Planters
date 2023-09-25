@@ -4,6 +4,8 @@ import NavBar from "./NavBar";
 import PlantCollection from "./PlantCollection"
 import Login from "./Login";
 import Signup from "./Signup";
+import Posts from "./Posts";
+import Plants from "./Plants";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -23,7 +25,6 @@ function App() {
 
   function handleLogout() {
     setUser(null)
-    return <Login handleLogin={handleLogin}/>
   }
 
   return (
@@ -45,8 +46,14 @@ function App() {
           <>
             <NavBar user={user} onLogout={handleLogout} />
             <Switch>
-              <Route exact path="/plants">
+              <Route exact path="/user_plants">
                 <PlantCollection user={user} />
+              </Route>
+              <Route exact path="/posts">
+                <Posts user={user} />
+              </Route>
+              <Route exact path="/plants">
+                <Plants user={user}/>
               </Route>
             </Switch>
           </>
