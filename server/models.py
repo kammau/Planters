@@ -7,7 +7,7 @@ from config import db, bcrypt
 user_plant = db.Table(
     "user_plant", 
     db.Column("user_id", db.Integer, db.ForeignKey("users.id")),
-    db.Column("plant", db.Integer, db.ForeignKey("plants.id"))
+    db.Column("plant_id", db.Integer, db.ForeignKey("plants.id"))
 )
 
 class User(db.Model, SerializerMixin):
@@ -17,7 +17,6 @@ class User(db.Model, SerializerMixin):
     username = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String)
 
-    # posts = db.relationship("Post", backref="user")
     plants = db.relationship("Plant", secondary=user_plant, back_populates="users")
 
     @hybrid_property
@@ -41,7 +40,6 @@ class User(db.Model, SerializerMixin):
 class Post(db.Model, SerializerMixin):
     __tablename__ = "posts"
 
-    serialize_rules = ("-users.posts", "-plants.posts")
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String)
@@ -57,7 +55,7 @@ class Post(db.Model, SerializerMixin):
 class Plant(db.Model, SerializerMixin):
     __tablename__ = "plants"
 
-    serialize_rules = ("-users.plants",)
+    serialize_rules = ("-users.plants", "-post.plants",)
 
     id = db.Column(db.Integer, primary_key=True)
     common_name = db.Column(db.String)
@@ -66,7 +64,6 @@ class Plant(db.Model, SerializerMixin):
     img = db.Column(db.String)
 
     users = db.relationship("User", secondary=user_plant, back_populates="plants")
-    # posts = db.relationship("Post", backref="plant")
 
     def __repr__(self):
         return f"{self.common_name}"

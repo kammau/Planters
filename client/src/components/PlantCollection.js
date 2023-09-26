@@ -77,7 +77,7 @@ function PlantCollection() {
     return (
         <div>
             <form onSubmit={formik.handleSubmit} className="collection_form">
-                <h3 id="collection_form_header">New Plant Form:</h3>
+                <h3 className="form_header">New Plant Form:</h3>
                 <input type="text" id="common_name" placeholder="Common Name" value={formik.values.common_name} onChange={formik.handleChange} className="collection_inputs"/>
                 <p className="homeForm_errors">{formik.errors.common_name}</p>
 
@@ -90,9 +90,9 @@ function PlantCollection() {
                 <input type="text" id="img" placeholder="Image URL" value={formik.values.img} onChange={formik.handleChange} className="collection_inputs"/>
                 <p className="homeForm_errors">{formik.errors.img}</p>
 
-                <button type="submit" id="collection_form_btn">Add</button>
+                <button type="submit" className="form_btn">Add</button>
             </form>
-            <h1 id="collection_header">Welcome to Your Plant Collection:</h1>
+            <h1 className="page_header">Welcome to Your Plant Collection:</h1>
             {plants ? plants.map((plant) => <PlantCard key={plant.id} plant={plant} onUpdate={handleUpdate} onDelete={handleDelete}/>) : <p id="no_plants_mess">Look's like you don't have any plant's yet!</p>}
         </div>
     )

@@ -2,9 +2,12 @@ import React from "react";
 
 function PostCard({post}) {
     return (
-        <div>
-            <h1>{post.content}</h1>
-            {Boolean(post.img) === true ? <img src={post.img} alt="plant"/> : null}
+        <div className="post_card">
+            <p className="post_txt">Genre: {post.genre}</p>
+            <p className="post_txt">Plant: {post.plant}</p>
+            <h1 className="content_text">{post.content}</h1>
+            <h4 className="content_text">By: {post.user}</h4>
+            <img src={post.img} className="post_img"/>
         </div>
     )
 }

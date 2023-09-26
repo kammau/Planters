@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 
 function Plants({user}) {
     const [plants, setPlants] = useState()
-    const [error, setError] = useState(false)
 
 
 
@@ -22,7 +21,6 @@ function Plants({user}) {
             body: JSON.stringify(plant)
         })
         .then((res) => res.json())
-        .then((res) => console.log(res))
     }
 
     return (
@@ -35,7 +33,6 @@ function Plants({user}) {
                         <p>{plant.growing_level}</p>
                         <img src={plant.img} alt={`${plant.common_name} plant`} className="img_resize"/>
                         <button onClick={() => handleAdd(plant)}>Add to Collection</button>
-                        <p>{error}</p>
                     </div>
                 )
             }) : <h1>error!</h1>}
