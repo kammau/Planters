@@ -16,9 +16,10 @@ if __name__ == '__main__':
     with app.app_context():
         print("Starting seed...")
         
-        # User.query.delete()
-        # Plant.query.delete()
-        # Post.query.delete()
+        User.query.delete()
+        Plant.query.delete()
+        Post.query.delete()
+        
 
         # Sample Data:
         accountTypes = ["Guide", "Planter"]
@@ -40,7 +41,6 @@ if __name__ == '__main__':
             users.append(user)
         
         db.session.add_all(users)
-        print(users)
 
         print("Seeding Plants...")
         plants = []
@@ -64,13 +64,15 @@ if __name__ == '__main__':
         db.session.add_all(posts)
 
         # Maybe change to plant and usernames instead of id later?...
-        for plant in plants:
-            user = random.choice(users)
-            if plant not in user.plants:
-                user.plants.append(plant)
-                db.session.add(user)
-                db.session.commit()
+        # for plant in plants:
+        #     user = random.choice(users)
+        #     user.plants.append(plant)
+        #     db.session.add(user)
+        #     db.session.commit()
 
+        for user in users:
+            plant = random.choice(plants)
+            user.plants.append(plant)
 
         db.session.commit()
 

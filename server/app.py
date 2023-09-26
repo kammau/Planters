@@ -66,6 +66,21 @@ class Plants(Resource):
 
         return plants, 200
 
+class PlantByID(Resource):
+    def patch(self, id):
+
+        user = User.query.filter(User.id == session["user_id"]).first()
+        plant = Plant.query.filter(Plant.id == id).first()
+
+        plant.users.append(user)
+        db.session.commit()
+
+        return plant.to_dict(), 202
+
+
+
+
+
 class UserPlants(Resource):
     def get(self):
         plants = Plant.query.join(user_plant).join(User).filter((user_plant.c.user_id == session["user_id"]) & (user_plant.c.plant_id == Plant.id)).all()
@@ -81,7 +96,7 @@ class UserPlants(Resource):
     def post(self):
         data = request.get_json()
         user = User.query.filter(User.id == session["user_id"]).first()
-
+        
         new_plant = Plant(
             common_name=data["common_name"],
             scientific_name=data["scientific_name"],
@@ -150,6 +165,7 @@ api.add_resource(Login, "/login", endpoint="login")
 api.add_resource(Signup, "/signup", endpoint="signup")
 api.add_resource(Logout, "/logout", endpoint="logout")
 api.add_resource(Plants, "/plants", endpoint="plants")
+api.add_resource(PlantByID, "/plants/<int:id>", endpoint="plant_by_id")
 api.add_resource(UserPlants, "/user_plants", endpoint="user_plants")
 api.add_resource(UserPlantByID, "/user_plants/<int:id>", endpoint="user_plant_by_id")
 api.add_resource(Posts, "/posts", endpoint="posts")

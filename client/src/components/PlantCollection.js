@@ -3,9 +3,8 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import PlantCard from "./PlantCard";
 
-function PlantCollection() {
-    const [plants, setPlants] = useState([])
-    const [noPlants, setNoPlants] = useState(false)
+function PlantCollection({user}) {
+    const [plants, setPlants] = useState()
 
     useEffect(() => {
         fetch("/user_plants")
@@ -14,8 +13,6 @@ function PlantCollection() {
                 res.json().then((res) => {
                     setPlants(res)
                 })
-            } else {
-                setNoPlants(true)
             }
         })
     }, [])
@@ -34,15 +31,14 @@ function PlantCollection() {
             let filteredPlants = plants.filter((plant) => plant.id !== deletedPlant.id)
             setPlants([...filteredPlants])
         } else {
-            setPlants([])
-            setNoPlants(true)
+            setPlants(null)
         }
     }
 
     const formSchema = yup.object().shape({
         common_name: yup.string().required("MUST ENTER A COMMON NAME"),
         scientific_name: yup.string().required("MUST ENTER SCIENTIFIC NAME"),
-        growing_level: yup.number().required("MUST ENTER GROWING LEVEL"),
+        growing_level: yup.number().required("MUST ENTER GROWING LEVEL").min(1, "Must Enter a number between 1 and 5!").max(5, "Must Enter a number between 1 and 5!").typeError("Must Enter an Integer"),
         img: yup.string().required("MUST ENTER IMAGE URL")
     })
 
@@ -65,12 +61,12 @@ function PlantCollection() {
             })
             .then((res) => res.json())
             .then((res) => {
-                if (noPlants === true) {
-                    setPlants([res])
-                    setNoPlants(false)
-                } else {
+                if (Boolean(plants)) {
                     const updatedPlants = [...plants, res]
                     setPlants(updatedPlants)
+
+                } else {
+                    setPlants([res])
                 }
                 resetForm({ values: "" })
             })
@@ -80,23 +76,24 @@ function PlantCollection() {
 
     return (
         <div>
-            <form onSubmit={formik.handleSubmit}>
-                <input type="text" id="common_name" placeholder="Common Name" value={formik.values.common_name} onChange={formik.handleChange}/>
-                <p>{formik.errors.common_name}</p>
+            <form onSubmit={formik.handleSubmit} className="collection_form">
+                <h3 id="collection_form_header">New Plant Form:</h3>
+                <input type="text" id="common_name" placeholder="Common Name" value={formik.values.common_name} onChange={formik.handleChange} className="collection_inputs"/>
+                <p className="homeForm_errors">{formik.errors.common_name}</p>
 
-                <input type="text" id="scientific_name" placeholder="Scientific Name" value={formik.values.scientific_name} onChange={formik.handleChange}/>
-                <p>{formik.errors.scientific_name}</p>
+                <input type="text" id="scientific_name" placeholder="Scientific Name" value={formik.values.scientific_name} onChange={formik.handleChange} className="collection_inputs"/>
+                <p className="homeForm_errors">{formik.errors.scientific_name}</p>
 
-                <input type="number" id="growing_level" placeholder="Growing Level (1-5)" min="1" max="5" value={formik.values.growing_level} onChange={formik.handleChange}/>
-                <p>{formik.errors.growing_level}</p>
+                <input type="text" id="growing_level" placeholder="Growing Level (1-5)" value={formik.values.growing_level} onChange={formik.handleChange} className="collection_inputs"/>
+                <p className="homeForm_errors">{formik.errors.growing_level}</p>
 
-                <input type="text" id="img" placeholder="Image URL" value={formik.values.img} onChange={formik.handleChange}/>
-                <p>{formik.errors.img}</p>
+                <input type="text" id="img" placeholder="Image URL" value={formik.values.img} onChange={formik.handleChange} className="collection_inputs"/>
+                <p className="homeForm_errors">{formik.errors.img}</p>
 
-                <button type="submit">Add</button>
+                <button type="submit" id="collection_form_btn">Add</button>
             </form>
-            <h1>Welcome to your Plant Collection page!</h1>
-            {noPlants === true ? <p>Look's like you don't have any plant's yet!</p> : plants.map((plant) => <PlantCard key={plant.id} plant={plant} onUpdate={handleUpdate} onDelete={handleDelete}/>)}
+            <h1 id="collection_header">{user.username}'s Plant Collection:</h1>
+            {plants ? plants.map((plant) => <PlantCard key={plant.id} plant={plant} onUpdate={handleUpdate} onDelete={handleDelete}/>) : <p id="no_plants_mess">Look's like you don't have any plant's yet!</p>}
         </div>
     )
 }

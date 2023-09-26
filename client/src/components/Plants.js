@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 
 
-function Plants() {
+function Plants({user}) {
     const [plants, setPlants] = useState()
+    // const [userPlants, setUserPlants] = useState()
+    const [error, setError] = useState(false)
 
 
     useEffect(() => {
@@ -13,20 +15,18 @@ function Plants() {
 
     // useEffect(() => {
     //     fetch("/user_plants")
-    // })
+    //     .then((res) => res.json())
+    //     .then((res) => setUserPlants(res))
+    // }, [])
 
     function handleAdd(plant) {
-        fetch("/user_plants", {
-            method: "POST",
+
+        fetch(`/plants/${plant.id}`, {
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                common_name: plant.common_name,
-                scientific_name: plant.scientific_name,
-                growing_level: plant.growing_level,
-                img: plant.img,
-            })
+            body: JSON.stringify(user)
         })
         .then((res) => res.json())
         .then((res) => {
@@ -40,12 +40,15 @@ function Plants() {
         <div>
             {plants ? plants.map((plant) => {
                 return (
-                    <div className="plant_card">
+                    <div className="plant_card" key={plant.id}>
+                        {console.log(plants)}
                         <h3>{plant.common_name}</h3>
                         <p>{plant.scientific_name}</p>
                         <p>{plant.growing_level}</p>
+                        <p>{plant.users.length}</p>
                         <img src={plant.img} alt={`${plant.common_name} plant`} className="img_resize"/>
                         <button onClick={() => handleAdd(plant)}>Add to Collection</button>
+                        <p>{error}</p>
                     </div>
                 )
             }) : <h1>error!</h1>}

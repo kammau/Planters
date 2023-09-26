@@ -150,7 +150,7 @@
   border: rgb(7, 129, 68) solid 1px;
   padding: 1rem;
   width: 15rem;
-  height: 20rem;
+  height: 500px;
   display: inline-grid;
   margin: 1rem 2rem;
   box-shadow: 3px 4px rgb(0, 127, 0);
@@ -160,4 +160,67 @@
 .img_resize {
   height: 150px;
   width: 100px;
+}
+
+.collection_form {
+  background-color: #293d3d;
+  margin: auto;
+  width: 700px;
+  height: 500px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px 2px #9b9b8a;
+}
+
+.collection_inputs {
+  display: block;
+  margin-top: 40px;
+  font-family: inherit;
+  width: 100%;
+  height: 10px;
+  border: 0;
+  border-bottom: 2px solid gray;
+  outline: 0;
+  font-size: 1.3rem;
+  color: white;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+#collection_form_btn {
+  background-color: #009999;
+  font-size: large;
+  color: white;
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+  border-color: white;
+  cursor: pointer;
+}
+
+#collection_form_btn:hover {
+  background-color: #007a7a;
+}
+
+#collection_form_header {
+  color: #669999;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: 5px;
+  padding-top: 10px;
+  text-decoration: underline;
+}
+
+#collection_header {
+  text-align: center;
+  text-decoration: underline;
+  font-family:Arial, Helvetica, sans-serif;
+  background-color: rgb(6, 161, 137);
+}
+
+#no_plants_mess {
+  text-align: center;
+  color: rgb(0, 0, 0);
+  font-weight: 100;
+  text-shadow: 2px 2px 2px rgba(149, 136, 136, 0.938);
+  font-family: Arial, Helvetica, sans-serif;
 }
