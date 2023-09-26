@@ -82,7 +82,7 @@ class PlantByID(Resource):
 
 class UserPlants(Resource):
     def get(self):
-        plants = Plant.query.join(user_plant).join(User).filter((user_plant.c.user_id == session["user_id"]) & (user_plant.c.plant == Plant.id)).all()
+        plants = Plant.query.join(user_plant).join(User).filter((user_plant.c.user_id == session["user_id"]) & (user_plant.c.plant_id == Plant.id)).all()
 
         plants_serialized = [plant.to_dict() for plant in plants]
         
@@ -152,12 +152,12 @@ class Posts(Resource):
         new_post = Post(
             content=data["content"],
             genre=data["genre"],
-            img=data["img"]
+            img=data["img"],
+            plant=data["plant"]
         )
 
         db.session.add(new_post)
         new_post.user = user.username
-        new_post.plant = plant.common_name
 
         db.session.commit()
 

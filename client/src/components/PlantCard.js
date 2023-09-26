@@ -38,9 +38,9 @@ function PlantCard({plant, onUpdate, onDelete}) {
         <div>
             {mode === "view" ? (
                 <div className="plant_card">
-                    <h3>{plant.common_name}</h3>
-                    <p>{plant.scientific_name}</p>
-                    <p>{plant.growing_level}</p>
+                    <h3 className="post_txt">Name: {plant.common_name}</h3>
+                    <p className="post_txt">Scientific Name:{plant.scientific_name}</p>
+                    <p className="post_txt">Growing Level: {plant.growing_level}</p>
                     <img src={plant.img} alt={`${plant.common_name} plant`} className="img_resize"/>
                     <button onClick={() => setMode("edit")}>Edit</button>
                     <button onClick={() => handleDelete(plant)}>Remove</button>
@@ -48,13 +48,13 @@ function PlantCard({plant, onUpdate, onDelete}) {
             ) : (
                 <div className="plant_card"> 
                     <form onSubmit={formik.handleSubmit}>
-                        <input type="text" id="common_name" value={formik.values.common_name} onChange={formik.handleChange}/>
+                        <input type="text" id="common_name" value={formik.values.common_name} onChange={formik.handleChange} className="edit_inputs"/>
 
-                        <input type="text" id="scientific_name" value={formik.values.scientific_name} onChange={formik.handleChange} />
+                        <input type="text" id="scientific_name" value={formik.values.scientific_name} onChange={formik.handleChange} className="edit_inputs"/>
 
-                        <input type="number" id="growing_level" min="1" max="5" value={formik.values.growing_level} onChange={formik.handleChange} />
+                        <input type="number" id="growing_level" min="1" max="5" value={formik.values.growing_level} onChange={formik.handleChange} className="edit_inputs"/>
 
-                        <input type="text" id="img" value={formik.values.img} onChange={formik.handleChange} />
+                        <input type="text" id="img" value={formik.values.img} onChange={formik.handleChange} className="edit_inputs"/>
 
                         <button type="submit">Save Changes</button>
                     </form>

@@ -28,9 +28,9 @@ function Plants({user}) {
             {plants ? plants.map((plant) => {
                 return (
                     <div className="plant_card" key={plant.id}>
-                        <h3>{plant.common_name}</h3>
-                        <p>{plant.scientific_name}</p>
-                        <p>{plant.growing_level}</p>
+                        <h3 className="post_txt">Name: {plant.common_name}</h3>
+                        <p className="post_txt">Scientific Name:{plant.scientific_name}</p>
+                        <p className="post_txt">Growing Level{plant.growing_level}</p>
                         <img src={plant.img} alt={`${plant.common_name} plant`} className="img_resize"/>
                         <button onClick={() => handleAdd(plant)}>Add to Collection</button>
                     </div>

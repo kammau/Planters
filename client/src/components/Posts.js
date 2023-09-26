@@ -5,6 +5,7 @@ import * as yup from "yup";
 
 function Posts({user}) {
     const [posts, setPosts] = useState();
+    const [plants, setPlants] = useState();
 
     useEffect(() => {
         fetch("/posts")
@@ -15,9 +16,17 @@ function Posts({user}) {
         })
     }, [])
 
+    useEffect(() => {
+        fetch("plants")
+        .then((res) => {
+            if (res.ok) {
+                res.json().then((res) => setPlants(res))
+            }
+        })
+    }, [])
+
     const formSchema = yup.object().shape({
         content: yup.string().required("Please enter some text"),
-        plant: yup.string().required("Please enter a plant name related to this post"),
         img: yup.string().required("Please enter a IMG URL")
     })
 
@@ -30,7 +39,7 @@ function Posts({user}) {
             plant: ""
         },
         validationSchema: formSchema,
-        onSubmit: (values, {resetForm}) => {
+        onSubmit: (values) => {
             fetch("/posts", {
                 method: "POST",
                 headers: {
@@ -46,6 +55,7 @@ function Posts({user}) {
                 } else {
                     setPosts([res])
                 }
+                console.log(values)
             })
         }
     })
@@ -57,17 +67,19 @@ function Posts({user}) {
                 <input type="text" placeholder="Post Text" id="content" value={formik.values.content} onChange={formik.handleChange}/>
                 <p className="homeForm_errors">{formik.errors.content}</p>
 
-                <select id="genre" onChange={formik.handleChange} className="post_input">
-                    <option value={formik.values.genre}>General</option>
-                    <option value={formik.values.genre}>Question</option>
-                    <option value={formik.values.genre}>Answer</option>
+                <select id="genre" onChange={formik.handleChange} className="post_input" value={formik.values.genre}>
+                    <option value="General">General</option>
+                    <option value="Question">Question</option>
+                    <option value="Answer">Answer</option>
                 </select>
 
                 <input id="img" type="text" placeholder="Image URL" value={formik.values.img} onChange={formik.handleChange} className="post_input"/>
                 <p className="homeForm_errors">{formik.errors.img}</p>
 
-                <input id="plant" type="text" placeholder="Plant's Name" value={formik.values.plant} onChange={formik.handleChange} className="post_input"/>
-                <p className="homeForm_errors">{formik.errors.plant}</p>
+                <select id="plant" onChange={formik.handleChange} className="post_input" values={formik.values.plant}>
+                    {plants ? plants.map((plant) => <option value={plant.common_name}>{plant.common_name}</option>) : null}
+                </select>
+                <p>{formik.errors.plant}</p>
 
                 <button type="submit" className="form_btn">Post</button>
             </form>

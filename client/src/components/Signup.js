@@ -28,7 +28,7 @@ function Signup({handleLogin}) {
                 if (res.status === 201) {
                     handleLogin(values.username)
                 }
-                else if (res.status === 422) {
+                else if (res.status !== 201) {
                     setError("true")
                 }
             })
@@ -40,7 +40,7 @@ function Signup({handleLogin}) {
             <h1 className="logsi_header">SIGNUP</h1>
             <form onSubmit={formik.handleSubmit} autoComplete="off">
                   
-                <input id="username" type="text" value={formik.values.username} onChange={formik.handleChange} placeholder="Username (Max 10)" className="loginInput"/>
+                <input id="username" type="text" value={formik.values.username} onChange={formik.handleChange} placeholder="Username" className="loginInput"/>
                 <p className="homeForm_errors">{formik.errors.username}</p>
                 
                 <input id="password" type="password" value={formik.values.password} onChange={formik.handleChange} placeholder="Password" className="loginInput"/>
@@ -48,7 +48,7 @@ function Signup({handleLogin}) {
 
                 <button type="submit" className="logsi_buttons">Signup</button>
             </form>
-            {error === "true" ? <p>OOPS... PLEASE ENTER VALID USER INFORMATION</p> : null}
+            {error === "true" ? <p className="homeForm_errors">OOPS... PLEASE ENTER VALID USER INFORMATION</p> : null}
         </div>
     )
 }
