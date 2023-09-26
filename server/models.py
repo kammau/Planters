@@ -7,7 +7,7 @@ from config import db, bcrypt
 user_plant = db.Table(
     "user_plant", 
     db.Column("user_id", db.Integer, db.ForeignKey("users.id")),
-    db.Column("plant_id", db.Integer, db.ForeignKey("plants.id"))
+    db.Column("plant", db.Integer, db.ForeignKey("plants.id"))
 )
 
 class User(db.Model, SerializerMixin):

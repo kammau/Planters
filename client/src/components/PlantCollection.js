@@ -3,13 +3,13 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import PlantCard from "./PlantCard";
 
-function PlantCollection({user}) {
+function PlantCollection() {
     const [plants, setPlants] = useState()
 
     useEffect(() => {
         fetch("/user_plants")
         .then((res) => {
-            if (res.ok) {
+            if (res.status === 200) {
                 res.json().then((res) => {
                     setPlants(res)
                 })
@@ -92,7 +92,7 @@ function PlantCollection({user}) {
 
                 <button type="submit" id="collection_form_btn">Add</button>
             </form>
-            <h1 id="collection_header">{user.username}'s Plant Collection:</h1>
+            <h1 id="collection_header">Welcome to Your Plant Collection:</h1>
             {plants ? plants.map((plant) => <PlantCard key={plant.id} plant={plant} onUpdate={handleUpdate} onDelete={handleDelete}/>) : <p id="no_plants_mess">Look's like you don't have any plant's yet!</p>}
         </div>
     )

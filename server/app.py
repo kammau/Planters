@@ -68,22 +68,21 @@ class Plants(Resource):
 
 class PlantByID(Resource):
     def patch(self, id):
-
-        user = User.query.filter(User.id == session["user_id"]).first()
         plant = Plant.query.filter(Plant.id == id).first()
+        user = User.query.filter(User.id == session["user_id"]).first()
 
-        plant.users.append(user)
+        db.session.add(plant)
+        user.plants.append(plant)
+
         db.session.commit()
-
+    
         return plant.to_dict(), 202
-
-
 
 
 
 class UserPlants(Resource):
     def get(self):
-        plants = Plant.query.join(user_plant).join(User).filter((user_plant.c.user_id == session["user_id"]) & (user_plant.c.plant_id == Plant.id)).all()
+        plants = Plant.query.join(user_plant).join(User).filter((user_plant.c.user_id == session["user_id"]) & (user_plant.c.plant == Plant.id)).all()
 
         plants_serialized = [plant.to_dict() for plant in plants]
         
@@ -91,7 +90,7 @@ class UserPlants(Resource):
             return plants_serialized, 200
 
         else:
-            return {"message": "404: No Content"}, 404
+            return {"message": "204: No Content"}, 204
 
     def post(self):
         data = request.get_json()
@@ -132,6 +131,7 @@ class UserPlantByID(Resource):
 
     def delete(self, id):
         plant = Plant.query.filter(Plant.id == id).first()
+        
 
         db.session.delete(plant)
         db.session.commit()
@@ -165,7 +165,7 @@ api.add_resource(Login, "/login", endpoint="login")
 api.add_resource(Signup, "/signup", endpoint="signup")
 api.add_resource(Logout, "/logout", endpoint="logout")
 api.add_resource(Plants, "/plants", endpoint="plants")
-api.add_resource(PlantByID, "/plants/<int:id>", endpoint="plant_by_id")
+api.add_resource(PlantByID, "/plants/<int:id>", endpoint="plants_by_id")
 api.add_resource(UserPlants, "/user_plants", endpoint="user_plants")
 api.add_resource(UserPlantByID, "/user_plants/<int:id>", endpoint="user_plant_by_id")
 api.add_resource(Posts, "/posts", endpoint="posts")

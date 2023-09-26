@@ -19,7 +19,7 @@ if __name__ == '__main__':
         User.query.delete()
         Plant.query.delete()
         Post.query.delete()
-        
+    
 
         # Sample Data:
         accountTypes = ["Guide", "Planter"]

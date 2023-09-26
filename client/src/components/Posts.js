@@ -51,7 +51,8 @@ function Posts({user}) {
 
     return (
         <div>
-            <form onSubmit={formik.handleSubmit}>
+            <form onSubmit={formik.handleSubmit} className="post_form">
+                <h2>New Post Form:</h2>
                 <input type="text" placeholder="Post Text" id="content" value={formik.values.content} onChange={formik.handleChange} />
                 <p>{formik.errors.content}</p>
 
