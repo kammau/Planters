@@ -16,7 +16,7 @@ export FLASK_APP=app.py
 export FLASK_RUN_PORT=5555
 ```
 
-Now to start our flask server type `flask run`.
+Then to install bcrypt, type `pip install flask-bcrypt`. Now to start our flask server type `flask run`.
 
 Now for our client, open a new terminal and head to this repo's root directory. Once there, type `npm start --prefix client` to launch.
 
