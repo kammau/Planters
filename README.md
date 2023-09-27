@@ -10,7 +10,7 @@ After copying this repo to your computer, head over to this repo's directory in 
 Next for installing dependencies for the frontend type:
 `npm install --prefix client`
 
-After the installations are complete, we can start up our server. First, head over to the `/server` directory with `cd server/` and type `pipenv shell` to enter the virtual environment. Inside of `/server` to be able to launch our server, type these commands one after the other:
+After the installations are complete, we can start up our server. First, type `pipenv shell` to enter the virtual environment. Next, head over to the `/server` directory with `cd server/`. Inside of `/server` to be able to launch our server, type these commands one after the other:
 ```
 export FLASK_APP=app.py
 export FLASK_RUN_PORT=5555
