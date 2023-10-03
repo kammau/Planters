@@ -46,8 +46,8 @@ class Post(db.Model, SerializerMixin):
     genre = db.Column(db.String)
     img = db.Column(db.String, nullable=True)
 
-    user = db.Column(db.String, db.ForeignKey("users.username"))
-    plant = db.Column(db.String, db.ForeignKey("plants.common_name"))
+    user = db.Column(db.Integer, db.ForeignKey("users.id"))
+    plant = db.Column(db.Integer, db.ForeignKey("plants.id"))
 
     def __repr__(self):
         return f"<Post {self.genre} | {self.user}>"
@@ -58,7 +58,7 @@ class Plant(db.Model, SerializerMixin):
     serialize_rules = ("-users.plants", "-post.plants",)
 
     id = db.Column(db.Integer, primary_key=True)
-    common_name = db.Column(db.String)
+    common_name = db.Column(db.String, unique=True)
     scientific_name = db.Column(db.String)
     growing_level = db.Column(db.Integer) 
     img = db.Column(db.String)
