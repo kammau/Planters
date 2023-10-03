@@ -17,6 +17,7 @@ node = "*"
 bcrypt = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
+honcho = "*"
 
 [requires]
 python_full_version = "3.8.13"
