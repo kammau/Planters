@@ -18,6 +18,7 @@ bcrypt = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
 honcho = "*"
+flask-bcrypt = "*"
 
 [requires]
 python_full_version = "3.8.13"
