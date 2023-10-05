@@ -14,6 +14,8 @@ from sqlalchemy_serializer import SerializerMixin
 # Local imports
 
 # Instantiate app, set attributes
+# "sqlite:///app.db"
+# os.environ.get('DATABASE_URI')
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
