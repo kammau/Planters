@@ -6,6 +6,9 @@
 from flask import Flask, request, session, jsonify, make_response
 from flask_restful import Resource
 
+import sys
+sys.path.append("/Users/kamryn/Development/code/Phase-4/phase-4-project")
+
 
 # Local imports
 from config import app, db, api
