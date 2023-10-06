@@ -7,7 +7,7 @@ function PostCard({post}) {
             <p className="post_txt">Plant: {post.plant}</p>
             <h1 className="content_text">{post.content}</h1>
             <h4 className="content_text">By: {post.user}</h4>
-            <img src={post.img} className="post_img"/>
+            <img src={post.img} alt="Plant" className="post_img"/>
         </div>
     )
 }
