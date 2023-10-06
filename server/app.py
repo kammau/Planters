@@ -1,21 +1,57 @@
 #!/usr/bin/env python3
 
-# Standard library imports
+
+from dotenv import load_dotenv
+load_dotenv()
 
 # Remote library imports
-from flask import Flask, request, session, jsonify, make_response
-from flask_restful import Resource
+import os
+from flask import Flask, request, session, jsonify, make_response, render_template
+from flask_cors import CORS
+from flask_migrate import Migrate
+from flask_restful import Api, Resource
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import MetaData
+from flask_bcrypt import Bcrypt
+from sqlalchemy_serializer import SerializerMixin
 
-import sys
-sys.path.append("/Users/kamryn/Development/code/Phase-4/phase-4-project")
+# app configuration
+app = Flask(
+    __name__,
+    static_url_path="",
+    static_folder="../client/build",
+    template_folder="../client/build")
 
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.json.compact = False
+
+# Define metadata, instantiate db
+metadata = MetaData(naming_convention={
+    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+})
+db = SQLAlchemy(metadata=metadata)
+migrate = Migrate(app, db)
+db.init_app(app)
+
+# Instantiate REST API
+api = Api(app)
+
+# Instantiate CORS
+CORS(app)
+
+# Instantiate Bcrypt
+bcrypt = Bcrypt(app)
 
 # Local imports
-from config import app, db, api
 from models import db, User, Post, Plant, user_plant
 
 app.secret_key = b'Q\xd9\x0c\xf0\xec\x1e!\xdb\xae6\x08\x0cuf\x95\xf9'
 
+@app.route("/")
+@app.route("/<int:id>")
+def index(id=0):
+    return render_template("index.html")
 
 class CheckSession(Resource):
     def get(self):
