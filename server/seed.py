@@ -58,7 +58,7 @@ if __name__ == '__main__':
         print("Seeding Posts...")
         posts = []
 
-        post1 = Post(content="Love my plant!", genre="General", img="https://www.creativefabrica.com/wp-content/uploads/2021/03/17/kawaii-cute-potted-plant-Graphics-9699063-1-580x386.jpg", user=f"{users[1]}", plant="Cactaceae")
+        post1 = Post(content="Love my plant!", genre="General", img="https://www.creativefabrica.com/wp-content/uploads/2021/03/17/kawaii-cute-potted-plant-Graphics-9699063-1-580x386.jpg", user=random.choice(users).id, plant=random.choice(plants).id)
         posts.append(post1)
 
         db.session.add_all(posts)
