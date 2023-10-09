@@ -42,6 +42,7 @@ class User(db.Model, SerializerMixin):
 class Post(db.Model, SerializerMixin):
     __tablename__ = "posts"
 
+    serialize_rules = ("-user.posts", "-plant.posts")
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String)
@@ -61,7 +62,7 @@ class Post(db.Model, SerializerMixin):
 class Plant(db.Model, SerializerMixin):
     __tablename__ = "plants"
 
-    serialize_rules = ("-users.plants", "-post.plants",)
+    serialize_rules = ("-users.plants", "-posts.plant",)
 
     id = db.Column(db.Integer, primary_key=True)
     common_name = db.Column(db.String, unique=True)
