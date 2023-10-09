@@ -9,7 +9,7 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db, User, Post, Plant, user_plant
+from models import db, User, Post, Plant
 
 if __name__ == '__main__':
     fake = Faker()
