@@ -186,7 +186,6 @@ class Posts(Resource):
     def post(self):
         data = request.get_json()
         user = User.query.filter(User.id == session["user_id"]).first()
-        plant = Plant.query.filter(Plant.common_name == data["plant"]).first()
 
         new_post = Post(
             content=data["content"],

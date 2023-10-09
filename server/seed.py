@@ -73,8 +73,8 @@ if __name__ == '__main__':
         po1 = Post(
             content = "Love my plant!",
             genre = "General",
-            user_id = u1.id,
-            plant_id = p3.id
+            user = u1,
+            plant = p3
         )
         posts.append(po1)
 
