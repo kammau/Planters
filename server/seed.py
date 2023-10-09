@@ -16,9 +16,9 @@ if __name__ == '__main__':
     with app.app_context():
         print("Starting seed...")
         
+        Post.query.delete()
         User.query.delete()
         Plant.query.delete()
-        Post.query.delete()
 
         # Users Seed:
         print("Seeding Users...")
@@ -36,7 +36,6 @@ if __name__ == '__main__':
         users.append(u3)
 
         db.session.add_all(users)
-        db.session.commit()
 
         # Plants Seed:
         print("Seeding Plants...")
@@ -66,7 +65,6 @@ if __name__ == '__main__':
         plants.append(p3)
 
         db.session.add_all(plants)
-        db.session.commit()
 
         # Posts Seed:
         print("Seeding Posts...")
@@ -82,6 +80,6 @@ if __name__ == '__main__':
         posts.append(po1)
 
         db.session.add(po1)
-        db.session.commit()
 
         print("Seeding Complete!")
+        db.session.commit()
