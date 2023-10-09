@@ -18,7 +18,6 @@ class User(db.Model, SerializerMixin):
     _password_hash = db.Column(db.String)
 
     plants = db.relationship("Plant", secondary=user_plant, back_populates="users")
-    # posts = db.relationship("Post", back_populates="user")
 
     @hybrid_property
     def password_hash(self):
@@ -50,8 +49,6 @@ class Post(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     plant_id = db.Column(db.Integer, db.ForeignKey("plants.id"))
 
-    # user = db.relationship("User", back_populates="posts")
-    # plant = db.relationship("Plant", back_populates="posts")
 
     def __repr__(self):
         return f"<Post {self.genre} | {self.user}>"
@@ -68,7 +65,6 @@ class Plant(db.Model, SerializerMixin):
     img = db.Column(db.String)
 
     users = db.relationship("User", secondary=user_plant, back_populates="plants")
-    # posts = db.relationship("Post", back_populates="plant")
 
     def __repr__(self):
         return f"{self.common_name}"
