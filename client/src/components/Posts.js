@@ -84,7 +84,6 @@ function Posts() {
                 <button type="submit" className="form_btn">Post</button>
             </form>
             <h1 className="page_header">Welcome to the Posts page!</h1>
-            {/* <div>{posts ? posts.map((post) => <PostCard key={post.id} post={post} />) : <h1>error!</h1>}</div> */}
 
             {posts ? posts.map((post) => {
                 return (
