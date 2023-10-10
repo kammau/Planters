@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useTransition } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import PlantCollection from "./PlantCollection"
@@ -50,7 +50,7 @@ function App() {
                 <PlantCollection user={user} />
               </Route>
               <Route exact path="/posts">
-                <Posts user={user} />
+                <Posts/>
               </Route>
               <Route exact path="/plants">
                 <Plants user={user}/>

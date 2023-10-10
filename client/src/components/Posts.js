@@ -8,22 +8,14 @@ function Posts() {
 
     useEffect(() => {
         fetch("/posts")
-        .then((res) => {
-            if (res.ok) {
-                res.json().then((res) => setPosts(res))
-            }
-        })
+        .then((res) => res.json())
+        .then((res) => setPosts(res))
     }, [])
 
     useEffect(() => {
         fetch("/plants")
-        .then((res) => {
-            if (res.ok) {
-                res.json().then((res) => {
-                    setPlants(res)
-                })
-            }
-        })
+        .then((res) => res.json())
+        .then((res) => setPlants(res))
     }, [])
 
     const formSchema = yup.object().shape({
@@ -88,7 +80,7 @@ function Posts() {
                 return (
                     <div className="post_card" key={post.id}>
                         <p className="post_txt">Genre: {post.genre}</p>
-                        <p className="post_txt">Plant: </p>
+                        <p className="post_txt">Plant: {post.plant.common_name}</p>
                         <h1 className="content_text">{post.content}</h1>
                         <h4 className="content_text">By: {post.user.username}</h4>
                         <img src={post.img} alt="Plant" className="post_img"/>

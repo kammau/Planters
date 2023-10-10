@@ -184,7 +184,6 @@ class Posts(Resource):
     def get(self):
         posts = [post.to_dict() for post in Post.query.all()]
 
-        print(posts)
         return posts, 200
 
     def post(self):

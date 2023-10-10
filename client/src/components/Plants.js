@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 
-function Plants({user}) {
+function Plants() {
     const [plants, setPlants] = useState()
 
 
