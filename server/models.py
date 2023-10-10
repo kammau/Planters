@@ -13,6 +13,8 @@ user_plant = db.Table(
 class User(db.Model, SerializerMixin):
     __tablename__ = "users"
 
+    serialize_rules = ("-posts.user", "-plants.users")
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String)

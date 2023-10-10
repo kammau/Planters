@@ -16,7 +16,7 @@ function Posts() {
     }, [])
 
     useEffect(() => {
-        fetch("plants")
+        fetch("/plants")
         .then((res) => {
             if (res.ok) {
                 res.json().then((res) => {
@@ -87,7 +87,7 @@ function Posts() {
 
             {posts ? posts.map((post) => {
                 return (
-                    <div className="post_card" key={post.id}>
+                    <div className="post_card">
                         <p className="post_txt">Genre: {post.genre}</p>
                         <p className="post_txt">Plant: {post.plant.common_name}</p>
                         <h1 className="content_text">{post.content}</h1>
