@@ -188,22 +188,18 @@ class Posts(Resource):
 
     def post(self):
         data = request.get_json()
-        print(data)
-        user = User.query.filter(User.id == session["user_id"]).first().to_dict()
-        plant = Plant.query.filter(Plant.common_name == data["plant"]).first().to_dict()
-
-        print(data["plant"])
+        user = User.query.filter(User.id == session["user_id"]).first()
+        plant = Plant.query.filter(Plant.common_name == data["plant"]).first()
 
         new_post = Post(
             content=data["content"],
             genre=data["genre"],
-            img=data["img"],
-            user=user,
-            plant=plant
+            img=data["img"]
         )
 
-        # new_post.user = user.to_dict()
-        # new_post.plant = plant
+        user.posts.append(new_post)
+        plant.posts.append(new_post)
+        
 
         db.session.add(new_post)
         db.session.commit()
