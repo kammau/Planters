@@ -6,7 +6,7 @@ load_dotenv()
 
 # Remote library imports
 import os
-from flask import Flask, request, session, jsonify, make_response, render_template
+from flask import Flask, request, session, render_template
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
@@ -184,6 +184,7 @@ class Posts(Resource):
     def get(self):
         posts = [post.to_dict() for post in Post.query.all()]
 
+        print(posts)
         return posts, 200
 
     def post(self):

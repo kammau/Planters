@@ -55,7 +55,6 @@ function Posts() {
                 } else {
                     setPosts(res)
                 }
-                console.log(values)
             })
         }
     })
@@ -89,7 +88,7 @@ function Posts() {
                 return (
                     <div className="post_card" key={post.id}>
                         <p className="post_txt">Genre: {post.genre}</p>
-                        <p className="post_txt">Plant: {post.plant.common_name}</p>
+                        <p className="post_txt">Plant: </p>
                         <h1 className="content_text">{post.content}</h1>
                         <h4 className="content_text">By: {post.user.username}</h4>
                         <img src={post.img} alt="Plant" className="post_img"/>
