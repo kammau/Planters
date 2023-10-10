@@ -110,9 +110,9 @@ class PlantByID(Resource):
         plant = Plant.query.filter(Plant.id == id).first()
         user = User.query.filter(User.id == session["user_id"]).first()
 
-        db.session.add(plant)
-        user.plants.append(plant)
+        plant.users.append(user)
 
+        db.session.add(plant)
         db.session.commit()
     
         return plant.to_dict(), 202
@@ -142,9 +142,9 @@ class UserPlants(Resource):
             img=data["img"],
         )
 
-        db.session.add(new_plant)
-        user.plants.append(new_plant)
+        new_plant.users.append(user)
 
+        db.session.add(new_plant)
         db.session.commit()
 
         return new_plant.to_dict(), 201
@@ -170,9 +170,11 @@ class UserPlantByID(Resource):
 
     def delete(self, id):
         plant = Plant.query.filter(Plant.id == id).first()
-        
+        user = User.query.filter(User.id == session["user_id"]).first()
 
-        db.session.delete(plant)
+        plant.users.remove(user)
+
+        db.session.add(plant)
         db.session.commit()
 
         return {}, 204
@@ -185,20 +187,25 @@ class Posts(Resource):
 
     def post(self):
         data = request.get_json()
+        print(data)
         user = User.query.filter(User.id == session["user_id"]).first()
+        plant = Plant.query.filter(Plant.common_name == data["plant"]).first()
+
+        print(data["plant"])
 
         new_post = Post(
             content=data["content"],
             genre=data["genre"],
             img=data["img"],
-            plant=data["plant"]
         )
 
-        db.session.add(new_post)
-        new_post.user = user.username
+        new_post.user = user
+        new_post.plant = plant
 
+        db.session.add(new_post)
         db.session.commit()
 
+        print(new_post.to_dict())
         return new_post.to_dict(), 201
         
 

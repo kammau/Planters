@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import PostCard from "./PostCard";
 import { useFormik  } from "formik";
 import * as yup from "yup";
 
-function Posts({user}) {
+function Posts() {
     const [posts, setPosts] = useState();
     const [plants, setPlants] = useState();
 
@@ -20,7 +19,9 @@ function Posts({user}) {
         fetch("plants")
         .then((res) => {
             if (res.ok) {
-                res.json().then((res) => setPlants(res))
+                res.json().then((res) => {
+                    setPlants(res)
+                })
             }
         })
     }, [])
@@ -35,7 +36,6 @@ function Posts({user}) {
             content: "",
             genre: "General",
             img: "",
-            user: user.username,
             plant: ""
         },
         validationSchema: formSchema,
@@ -53,7 +53,7 @@ function Posts({user}) {
                     const updatedPosts = [...posts, res]
                     setPosts(updatedPosts)
                 } else {
-                    setPosts([res])
+                    setPosts(res)
                 }
                 console.log(values)
             })
@@ -84,7 +84,19 @@ function Posts({user}) {
                 <button type="submit" className="form_btn">Post</button>
             </form>
             <h1 className="page_header">Welcome to the Posts page!</h1>
-            {posts ? posts.map((post) => <PostCard key={post.id} post={post} />) : <h1>error!</h1>}
+            {/* <div>{posts ? posts.map((post) => <PostCard key={post.id} post={post} />) : <h1>error!</h1>}</div> */}
+
+            {posts ? posts.map((post) => {
+                return (
+                    <div className="post_card" key={post.id}>
+                        <p className="post_txt">Genre: {post.genre}</p>
+                        <p className="post_txt">Plant: {post.plant.common_name}</p>
+                        <h1 className="content_text">{post.content}</h1>
+                        <h4 className="content_text">By: {post.user.username}</h4>
+                        <img src={post.img} alt="Plant" className="post_img"/>
+                    </div>
+                )
+            }) : <h1>Error</h1>}
         </div>
     )
 }
