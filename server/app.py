@@ -189,8 +189,8 @@ class Posts(Resource):
     def post(self):
         data = request.get_json()
         print(data)
-        user = User.query.filter(User.id == session["user_id"]).first()
-        plant = Plant.query.filter(Plant.common_name == data["plant"]).first()
+        user = User.query.filter(User.id == session["user_id"]).first().to_dict()
+        plant = Plant.query.filter(Plant.common_name == data["plant"]).first().to_dict()
 
         print(data["plant"])
 
@@ -206,7 +206,6 @@ class Posts(Resource):
         db.session.add(new_post)
         db.session.commit()
 
-        print(new_post.to_dict())
         return new_post.to_dict(), 201
         
 
