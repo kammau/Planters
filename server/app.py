@@ -198,10 +198,12 @@ class Posts(Resource):
             content=data["content"],
             genre=data["genre"],
             img=data["img"],
+            user=user,
+            plant=plant
         )
 
-        new_post.user = user
-        new_post.plant = plant
+        # new_post.user = user.to_dict()
+        # new_post.plant = plant
 
         db.session.add(new_post)
         db.session.commit()
