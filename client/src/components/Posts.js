@@ -9,7 +9,9 @@ function Posts() {
     useEffect(() => {
         fetch("/posts")
         .then((res) => res.json())
-        .then((res) => setPosts(res))
+        .then((res) => {
+            setPosts(res)
+        })
     }, [])
 
     useEffect(() => {
@@ -32,6 +34,7 @@ function Posts() {
         },
         validationSchema: formSchema,
         onSubmit: (values) => {
+            console.log(JSON.stringify(values))
             fetch("/posts", {
                 method: "POST",
                 headers: {
@@ -79,6 +82,7 @@ function Posts() {
             {posts ? posts.map((post) => {
                 return (
                     <div className="post_card" key={post.id}>
+                        {console.log(post)}
                         <p className="post_txt">Genre: {post.genre}</p>
                         <p className="post_txt">Plant: {post.plant.common_name}</p>
                         <h1 className="content_text">{post.content}</h1>

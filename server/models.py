@@ -13,7 +13,7 @@ user_plant = db.Table(
 class User(db.Model, SerializerMixin):
     __tablename__ = "users"
 
-    serialize_rules = ("-posts.user", "-plants.users")
+    serialize_rules = ("-plants.users", "-posts.user", "-plants.posts", "-posts.plant")
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
@@ -39,12 +39,12 @@ class User(db.Model, SerializerMixin):
 
 
     def __repr__(self):
-        return f"{self.username}"
+        return f"< User | {self.username} | {self.id}>"
 
 class Post(db.Model, SerializerMixin):
     __tablename__ = "posts"
 
-    serialize_rules = ("-user.posts", "-plant.posts")
+    serialize_rules = ("-user.posts", "-plant.posts", "-plant.users", "-user.plants")
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String)
@@ -59,12 +59,12 @@ class Post(db.Model, SerializerMixin):
 
 
     def __repr__(self):
-        return f"<Post {self.genre} | {self.user}>"
+        return f"<Post {self.genre} | {self.user} | {self.plant}>"
 
 class Plant(db.Model, SerializerMixin):
     __tablename__ = "plants"
 
-    serialize_rules = ("-users.plants", "-posts.plant",)
+    serialize_rules = ("-users.plants", "-posts.plant", "-posts.user", "-users.posts")
 
     id = db.Column(db.Integer, primary_key=True)
     common_name = db.Column(db.String, unique=True)
@@ -77,5 +77,5 @@ class Plant(db.Model, SerializerMixin):
     posts = db.relationship("Post", back_populates="plant")
 
     def __repr__(self):
-        return f"{self.common_name}"
+        return f"<Plant | {self.common_name} | {self.id}>"
 

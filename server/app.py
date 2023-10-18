@@ -191,15 +191,19 @@ class Posts(Resource):
         user = User.query.filter(User.id == session["user_id"]).first()
         plant = Plant.query.filter(Plant.common_name == data["plant"]).first()
 
+        print(user)
+        print(plant)
+
         new_post = Post(
             content=data["content"],
             genre=data["genre"],
-            img=data["img"]
+            img=data["img"],
+            user=user,
+            plant=plant
         )
 
-        user.posts.append(new_post)
-        plant.posts.append(new_post)
-        
+        print(new_post)
+
 
         db.session.add(new_post)
         db.session.commit()
