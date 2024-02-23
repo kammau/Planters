@@ -1,6 +1,5 @@
 # PLANTER'S WEB APPLICATION (PHASE-4 PROJECT)
 [Video link](https://youtu.be/huTaXB_g_lI)
-[Deployment Link](https://planters.onrender.com)
 
 ## Introduction:
 This Web application is for plant owners who want to keep track of their plants in an easy-to-use environment. Users can add new plants to their collections as well as share posts about their favorite plants!
