@@ -5,6 +5,11 @@
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
+body {
+  background-image: url(https://img.freepik.com/free-photo/tropical-monstera-leaf-border-frame-leaf-banner-background_53876-104691.jpg);
+  background-size: cover;
+}
+
 .nav_links {
   margin-right: 50px;
   text-decoration: none;

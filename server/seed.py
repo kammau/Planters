@@ -17,9 +17,9 @@ if __name__ == '__main__':
         print("Starting seed...")
         
         db.session.query(user_plant).delete()
-        Post.query.delete()
         User.query.delete()
         Plant.query.delete()
+        Post.query.delete()
 
         # Users Seed:
         print("Seeding Users...")

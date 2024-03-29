@@ -6,6 +6,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 import Posts from "./Posts";
 import Plants from "./Plants";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -40,6 +41,7 @@ function App() {
               <Route exact path="/signup">
                 <Signup handleLogin={handleLogin} />
               </Route>
+              <Redirect from="/" to="login" />
             </Switch>
           </>
         ) : (
@@ -55,6 +57,7 @@ function App() {
               <Route exact path="/plants">
                 <Plants user={user}/>
               </Route>
+              <Redirect from="/" to="plants" />
             </Switch>
           </>
         )}
