@@ -50,6 +50,11 @@ function Login({handleLogin}) {
                 <button type="submit" className="logsi_buttons">Login</button>
             </form>
             {error === "true" ? <p className="homeForm_errors">OOPS... PLEASE ENTER VALID USER INFORMATION</p> : null}
+
+            <div>
+                <button>LOGIN</button>
+                <button>SIGNUP</button>
+            </div>
         </div>
     )
 }

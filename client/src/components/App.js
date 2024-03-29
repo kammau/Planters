@@ -33,7 +33,6 @@ function App() {
       <>
         {!user ? (
           <>
-            <NavBar user={user} onLogout={handleLogout}/>
             <Switch>
               <Route exact path="/login">
                 <Login handleLogin={handleLogin} />
