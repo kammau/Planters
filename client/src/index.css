@@ -103,6 +103,36 @@ body {
   border-color: #339933;
 }
 
+#switch_btns_con {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.on_switch {
+  width: 100px;
+  height: 30px;
+  margin-right: 5px;
+
+  background-color: #425555;
+  color: white;
+}
+
+.off_switch {
+  width: 100px;
+  height: 30px;
+  margin-right: 5px;
+
+  cursor: pointer;
+
+  background-color: #138886;
+  color: white;
+
+  &:hover {
+    transition: all 0.3s;
+    background-color: #24aeab;
+  }
+} 
+
 .home_buttons {
   background-image: url("https://wallpaperaccess.com/thumb/5868292.jpg");
   color: white;

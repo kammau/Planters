@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import * as yup from "yup";
 
 function Signup({handleLogin}) {
@@ -49,6 +50,11 @@ function Signup({handleLogin}) {
                 <button type="submit" className="logsi_buttons">Signup</button>
             </form>
             {error === "true" ? <p className="homeForm_errors">OOPS... PLEASE ENTER VALID USER INFORMATION</p> : null}
+
+            <div id="switch_btns_con">
+                <NavLink to="/login"><button className="off_switch">LOGIN</button></NavLink>
+                <button className="on_switch">SIGNUP</button>
+            </div>
         </div>
     )
 }
